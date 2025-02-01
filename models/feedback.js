@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*------------------- Feedback model definition -----------------------*/
+/*=====================================================================*/
+
 'use strict';
 const {
   Model
@@ -10,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Feedback.belongsTo(models.User, { foreignKey: 'userId', allowNull: true });
+      Feedback.belongsTo(models.Dish, { foreignKey: 'dishId', allowNull: true });
     }
   }
   Feedback.init({

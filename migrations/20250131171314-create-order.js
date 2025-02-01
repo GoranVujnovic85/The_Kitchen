@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*-------------------- Migration for Order table ----------------------*/
+/*=====================================================================*/
+
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,7 +14,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       date: {
         type: Sequelize.DATE

@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*------------------- Migration for Feedback table --------------------*/
+/*=====================================================================*/
+
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,10 +14,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onDelete: 'SET NULL'
       },
       dishId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'Dishes',
+          key: 'id'
+        },
+      onDelete: 'SET NULL'
       },
       rating: {
         type: Sequelize.INTEGER

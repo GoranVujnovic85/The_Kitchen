@@ -1,41 +1,37 @@
 /*=====================================================================*/
-/*------------------ Migration for OrderItem table --------------------*/
+/*---------------- Migration for dailyMenuDishes table ----------------*/
+/*----The DailyMenuDishes table serves as a pivot (junction) table ----*/
+/*----------- to establish a many-to-many relationship between --------*/
+/*----------------------- DailyMenus and Dishes. ----------------------*/
 /*=====================================================================*/
 
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('OrderItems', {
+    await queryInterface.createTable('DailyMenuDishes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      orderId: {
+      dailyMenuId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Orders',
+          model: 'DailyMenus',       // Pay attention to the table name!
           key: 'id'
         },
-      onDelete: 'CASCADE'
+        onDelete: 'CASCADE'
       },
       dishId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Dishes',
+          model: 'Dishes',           // Pay attention to the table name!
           key: 'id'
         },
-      onDelete: 'CASCADE'
-      },
-      quantity: {
-        type: Sequelize.INTEGER
-      },
-      price: {
-        type: Sequelize.FLOAT
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
@@ -47,7 +43,8 @@ module.exports = {
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('OrderItems');
+    await queryInterface.dropTable('DailyMenuDishes');
   }
 };

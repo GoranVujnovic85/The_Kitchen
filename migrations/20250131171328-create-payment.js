@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*------------------- Migration for Payment table ---------------------*/
+/*=====================================================================*/
+
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -10,7 +14,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       orderId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Orders',
+          key: 'id'
+        },
+        onDelete: 'CASCADE'
       },
       method: {
         type: Sequelize.STRING

@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*---------------------- User model definition ------------------------*/
+/*=====================================================================*/
+
 'use strict';
 const {
   Model
@@ -10,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Order, { foreignKey: 'userId', onDelete: 'CASCADE' });
+      User.hasMany(models.Feedback, { foreignKey: 'userId', onDelete: 'SET NULL' });
     }
   }
   User.init({

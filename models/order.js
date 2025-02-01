@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*--------------------- Order model definition ------------------------*/
+/*=====================================================================*/
+
 'use strict';
 const {
   Model
@@ -10,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Order.belongsTo(models.User, { foreignKey: 'userId' });
+      Order.hasMany(models.OrderItem, { foreignKey: 'orderId', onDelete: 'CASCADE' });
+      Order.hasOne(models.Payment, { foreignKey: 'orderId', onDelete: 'CASCADE' });
     }
   }
   Order.init({

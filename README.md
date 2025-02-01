@@ -70,7 +70,7 @@
 
 ## 📂 Project Structure
 
-SUC_A_NICE_A_DAY/
+The_Kitchen/
 |-- node_modules/             // Node.js modules (auto-generated)
 |-- config/
 |   |-- database.js           // Sequelize database configuration
@@ -91,6 +91,7 @@ SUC_A_NICE_A_DAY/
 
 
 ## 🏁 The first steps of the project
+⚠️ **Warning:** ❗ These steps are the creator's little reminder. It will be very unreasonable for those who have not passed this project. ❗
 
 📌 Create a repository with the project name on github
 📌 On your local machine, open git bash
@@ -109,4 +110,7 @@ SUC_A_NICE_A_DAY/
 ✏️   npx sequelize-cli model:generate --name ContactMessage --attributes name:string,email:string,subject:string,message:text,status:string
 ✏️   npx sequelize-cli model:generate --name Feedback --attributes userId:integer,dishId:integer,rating:integer,comment:text
 📌 Test connection with DB: copy -> node -e "require('./models').sequelize.authenticate().then(() => console.log('Database connected')).catch(err => console.error('Connection failed', err));"
+📌 npx sequelize-cli db:migrate
+📌 npx sequelize migration:generate --name create-dailyMenuDishes 
+📌 npx sequelize db:migrate:undo:all
 📌 npx sequelize-cli db:migrate

@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*---------------------- Dish model definition ------------------------*/
+/*=====================================================================*/
+
 'use strict';
 const {
   Model
@@ -10,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Dish.belongsToMany(models.DailyMenu, { through: 'DailyMenuDishes', foreignKey: 'dishId' });
+      Dish.hasMany(models.OrderItem, { foreignKey: 'dishId', onDelete: 'CASCADE' });
+      Dish.hasMany(models.Feedback, { foreignKey: 'dishId', onDelete: 'SET NULL' });
     }
   }
   Dish.init({

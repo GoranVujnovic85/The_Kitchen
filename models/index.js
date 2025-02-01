@@ -1,4 +1,5 @@
 /*==============================================================================================================================================*/
+/*------------------------------------------------ Sequelize initialization and associations ---------------------------------------------------*/
 /*---------------------- The index.js file in the models folder is a key part for integrating all models into Sequelize ORM.  ------------------*/ 
 /*------------------------------ This file is used to dynamically load all models from the folder and link them --------------------------------*/
 /*----------------------------------------------- instance, enabling the use of those models. --------------------------------------------------*/

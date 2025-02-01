@@ -1,3 +1,7 @@
+/*=====================================================================*/
+/*-------------------- DailyMenu model definition ---------------------*/
+/*=====================================================================*/
+
 'use strict';
 const {
   Model
@@ -10,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      DailyMenu.belongsToMany(models.Dish, { through: 'DailyMenuDishes', foreignKey: 'dailyMenuId' });
     }
   }
   DailyMenu.init({
