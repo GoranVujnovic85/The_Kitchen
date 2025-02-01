@@ -57,11 +57,11 @@
 
 
 ## 📺 Display
-- POST /:       http://localhost: 👁️ 
-- GET  /:       http://localhost: 🔍
-- GET  /:       http://localhost: 👁️ 
-- PUT  /:       http://localhost: 🔍
-- DELETE /:     http://localhost: 👁️ 
+- POST /:       http://localhost:3000 👁️ 
+- GET  /:       http://localhost:3000 🔍
+- GET  /:       http://localhost:3000 👁️ 
+- PUT  /:       http://localhost:3000 🔍
+- DELETE /:     http://localhost:3000 👁️ 
 
 
 ## 📝 Input Template ✏️✏️✏️
@@ -114,3 +114,13 @@ The_Kitchen/
 📌 npx sequelize migration:generate --name create-dailyMenuDishes 
 📌 npx sequelize db:migrate:undo:all
 📌 npx sequelize-cli db:migrate
+📌 Controller implementation
+📌 Rutes implementation
+📌 server.js implementation
+📌 Starts server
+    👉 node server.js
+📌 Seeders implementation
+    👉 npx sequelize-cli db:seed:all
+    👉 npx sequelize-cli db:seed:undo
+📌 npm install multer   
+📌 create uploads file  
