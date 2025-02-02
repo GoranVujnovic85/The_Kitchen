@@ -66,27 +66,73 @@
 
 ## 📝 Input Template ✏️✏️✏️
 
-     
+ {
+  "name": "name of dish",
+  "description": "something about it",
+  "price": 0.00,
+  "image": "uploads/nameofpicture.png"
+}
 
 ## 📂 Project Structure
 
 The_Kitchen/
-|-- node_modules/             // Node.js modules (auto-generated)
+|-- node_modules/
 |-- config/
-|   |-- database.js           // Sequelize database configuration
-|-- controllers/              // Folder for controllers
-|-- migrations/               // Folder for database migrations
-|-- models/                   // Folder for Sequelize models
-|-- routes/                   // Folder for API routes
-|-- seeders/                  // Folder for database seeding
-|-- middlewares/              // Folder for middleware functions
-|-- utils/                    // Folder for utility scripts
-|-- .env                      // Environment variables
-|-- .gitignore                // Files and folders to ignore in Git
-|-- package.json              // Node.js dependencies and scripts
-|-- package-lock.json         // Dependency lock file
-|-- README.md                 // Project documentation
-|-- server.js                 // Main server file, initializes Express app
+|   |-- database.js                              // Sequelize database configuration
+|   |-- config.js                                // Sequelize configuration file to manage database connections across environments
+|-- controllers/
+|   |-- userController.js                        // CRUD operations for User
+|   |-- dailyMenuController.js                   // CRUD operations for DailyMenu
+|   |-- dishController.js                        // CRUD operations for Dish
+|   |-- orderController.js                       // CRUD operations for Order
+|   |-- orderItemController.js                   // CRUD operations for OrderItem
+|   |-- paymentController.js                     // CRUD operations for Payment
+|   |-- contactMessageController.js              // CRUD operations for ContactMessage
+|   |-- feedbackController.js                    // CRUD operations for Feedback
+|-- migrations/
+|   |-- 20230123000000-create-user.js            // Migration for User table
+|   |-- 20230123000100-create-dailyMenu.js       // Migration for DailyMenu table
+|   |-- 20230123000200-create-dish.js            // Migration for Dish table
+|   |-- 20230123000300-create-order.js           // Migration for Order table
+|   |-- 20230123000400-create-orderItem.js       // Migration for OrderItem table
+|   |-- 20230123000500-create-payment.js         // Migration for Payment table
+|   |-- 20230123000600-create-contactMessage.js  // Migration for ContactMessage table
+|   |-- 20230123000700-create-feedback.js        // Migration for Feedback table
+|   |-- 20250201062800-create-dailyMenuDishes.js // Pivot table for DailyMenus and Dishes
+|-- models/
+|   |-- index.js                                 // Sequelize initialization and associations
+|   |-- User.js                                  // User model definition
+|   |-- DailyMenu.js                             // DailyMenu model definition
+|   |-- Dish.js                                  // Dish model definition
+|   |-- Order.js                                 // Order model definition
+|   |-- OrderItem.js                             // OrderItem model definition
+|   |-- Payment.js                               // Payment model definition
+|   |-- ContactMessage.js                        // ContactMessage model definition
+|   |-- Feedback.js                              // Feedback model definition
+|-- routes/
+|   |-- userRoutes.js                            // API routes for User
+|   |-- dailyMenuRoutes.js                       // API routes for DailyMenu
+|   |-- dishRoutes.js                            // API routes for Dish
+|   |-- orderRoutes.js                           // API routes for Order
+|   |-- orderItemRoutes.js                       // API routes for OrderItem
+|   |-- paymentRoutes.js                         // API routes for Payment
+|   |-- contactMessageRoutes.js                  // API routes for ContactMessage
+|   |-- feedbackRoutes.js                        // API routes for Feedback
+|-- seeders/
+|   |-- mockData.json                            // JSON file with initial mock data
+|   |-- seedDatabase.js                          // Script to seed database using mockData.json
+|-- middlewares/
+|   |-- authMiddleware.js                        // Authentication and authorization middleware
+|-- utils/
+|   |-- responseHandler.js                       // Utility for standardizing API responses
+|-- uploads/                                     // Folder for storing dish and order images
+|-- .env                                         // Environment variables
+|-- .gitignore                                   // Files and folders to ignore in Git
+|-- package.json                                 // Node.js dependencies and scripts
+|-- package-lock.json                            // Dependency lock file
+|-- server.js                                    // Main server file, initializes Express app
+
+
 
 
 
