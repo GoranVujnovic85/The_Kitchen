@@ -9,7 +9,7 @@ const mockData = JSON.parse(fs.readFileSync(path.join(__dirname, 'mockData.json'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Insert dishes data from mockData.json
+    // Insert dishes data
     await queryInterface.bulkInsert('Dishes', mockData.dishes.map(dish => ({
       name: dish.name,
       description: dish.description,
@@ -18,10 +18,22 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     })));
+
+    // Insert contact messages data
+    await queryInterface.bulkInsert('ContactMessages', mockData.contactMessages.map(msg => ({
+      name: msg.name,
+      email: msg.email,
+      subject: msg.subject,
+      message: msg.message,
+      status: msg.status,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })));
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Delete the dishes data (for rollback)
+    // Delete dishes and contact messages data (for rollback)
     await queryInterface.bulkDelete('Dishes', null, {});
+    await queryInterface.bulkDelete('ContactMessages', null, {});
   }
 };

@@ -21,6 +21,18 @@ const upload = multer({ storage: storage });
 class DishController {
   constructor() {}
 
+  async createDish(req, res) {
+    try {
+      const { name, price } = req.body;
+      const imagePath = req.file ? req.file.path : null;
+
+      const newDish = await Dish.create({ name, price, image: imagePath });
+      return successResponse(res, 'Dish created successfully', newDish, 201);
+    } catch (error) {
+      return errorResponse(res, 'Bad Request', 400, error.message);
+    }
+  }
+  
   async getAllDishes(req, res) {
     try {
       const dishes = await Dish.findAll();
@@ -40,18 +52,6 @@ class DishController {
       return successResponse(res, 'Dish retrieved successfully', dish);
     } catch (error) {
       return errorResponse(res, 'Internal Server Error', 500, error.message);
-    }
-  }
-
-  async createDish(req, res) {
-    try {
-      const { name, price } = req.body;
-      const imagePath = req.file ? req.file.path : null;
-
-      const newDish = await Dish.create({ name, price, image: imagePath });
-      return successResponse(res, 'Dish created successfully', newDish, 201);
-    } catch (error) {
-      return errorResponse(res, 'Bad Request', 400, error.message);
     }
   }
 

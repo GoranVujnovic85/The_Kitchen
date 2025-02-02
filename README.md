@@ -66,11 +66,20 @@
 
 ## 📝 Input Template ✏️✏️✏️
 
+"dishes":
  {
   "name": "name of dish",
   "description": "something about it",
   "price": 0.00,
   "image": "uploads/nameofpicture.png"
+}
+"contactMessages":
+{
+  "name": "James Anderson",
+  "email": "jemes.anderson@gmail.com",
+  "subject": "Inquiry about services",
+  "message": "Hello, I would like to know more about your catering services.",
+  "status": "new"
 }
 
 ## 📂 Project Structure

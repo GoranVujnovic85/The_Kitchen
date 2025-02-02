@@ -13,10 +13,12 @@ app.use('/uploads', express.static('uploads'));                 // Enables the d
 
 // Import routes
 const dishRoutes = require('./routes/dishRoutes');
+const contactMessageRoutes = require("./routes/contactMessageRoutes");
 
 
 // Define API routes
 app.use('/api', dishRoutes);
+app.use("/api", contactMessageRoutes);
 
 
 // Test database connection before starting the server

@@ -1,22 +1,46 @@
 {
-    "dishes": [
-      {
-        "name": "Podvarak in sac",
-        "description": "Is a traditionally prepared dish that is cooked slowly in an earthen pot, with the addition of aromatic spices and natural ingredients.",
-        "price": 570.00,
-        "image": "uploads/Podvarak in suc.png"
-      },
-      {
-        "name": "Beans in sac",
-        "description": "Beans are cooked with dried meat, bacon or sausages, with the addition of onions, garlic, bay leaves and paprika, which achieves a perfect balance of aromas.",
-        "price": 640.00,
-        "image": "uploads/Beans in suc.png"
-      },
-      {
-        "name": "Fresh cabbage in sac",
-        "description": "Fresh cabbage is stewed with meat such as pork, beef or chicken, with the addition of onions, carrots, peppers and spices such as pepper, bay leaves and allspice.",
-        "price": 700.00,
-        "image": "uploads/Fresh cabbage in sac.png"
-      }
-    ]
-  }
+  "dishes": [
+    {
+      "name": "Podvarak in sac",
+      "description": "Is a traditionally prepared dish that is cooked slowly in an earthen pot, with the addition of aromatic spices and natural ingredients.",
+      "price": 570.00,
+      "image": "uploads/Podvarak in suc.png"
+    },
+    {
+      "name": "Beans in sac",
+      "description": "Beans are cooked with dried meat, bacon or sausages, with the addition of onions, garlic, bay leaves and paprika, which achieves a perfect balance of aromas.",
+      "price": 640.00,
+      "image": "uploads/Beans in suc.png"
+    },
+    {
+      "name": "Fresh cabbage in sac",
+      "description": "Fresh cabbage is stewed with meat such as pork, beef or chicken, with the addition of onions, carrots, peppers and spices such as pepper, bay leaves and allspice.",
+      "price": 700.00,
+      "image": "uploads/Fresh cabbage in sac.png"
+    }
+  ],
+  "contactMessages": [
+    {
+      "name": "James Anderson",
+      "email": "jemes.anderson@gmail.com",
+      "subject": "Inquiry about services",
+      "message": "Hello, I would like to know more about your catering services.",
+      "status": "new"
+    },
+    {
+      "name": "Oliver Smith",
+      "email": "osmith@nis.rs",
+      "subject": "Issue with order",
+      "message": "My order arrived late. Can you assist me?",
+      "status": "pending"
+    },
+    {
+      "name": "William Johnson",
+      "email": "johnsonW@yahoo.com",
+      "subject": "Issue with order",
+      "message": "I got a meal that I didn't order!",
+      "status": "pending"
+    }
+  ]
+
+}
