@@ -3,6 +3,7 @@
 /*===================================================================================*/
 
 const { Dish } = require('../models');
+const { successResponse, errorResponse } = require('../utils/responseHandler');
 const multer = require('multer');
 
 // Configure where and how files are stored
@@ -11,7 +12,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');                             // Folder where images are stored
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);   // Unikatan naziv slike
+    cb(null, Date.now() + '-' + file.originalname);   // Unique image name
   }
 });
 
@@ -23,9 +24,9 @@ class DishController {
   async getAllDishes(req, res) {
     try {
       const dishes = await Dish.findAll();
-      res.json(dishes);
+      return successResponse(res, 'Dishes retrieved successfully', dishes);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return errorResponse(res, 'Internal Server Error', 500, error.message);
     }
   }
 
@@ -34,11 +35,11 @@ class DishController {
       const { id } = req.params;
       const dish = await Dish.findByPk(id);
       if (!dish) {
-        return res.status(404).json({ error: 'Dish not found' });
+        return errorResponse(res, 'Dish not found', 404);
       }
-      res.json(dish);
+      return successResponse(res, 'Dish retrieved successfully', dish);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return errorResponse(res, 'Internal Server Error', 500, error.message);
     }
   }
 
@@ -48,9 +49,9 @@ class DishController {
       const imagePath = req.file ? req.file.path : null;
 
       const newDish = await Dish.create({ name, price, image: imagePath });
-      res.status(201).json(newDish);
+      return successResponse(res, 'Dish created successfully', newDish, 201);
     } catch (error) {
-      res.status(400).json({ error: 'Bad Request' });
+      return errorResponse(res, 'Bad Request', 400, error.message);
     }
   }
 
@@ -66,13 +67,13 @@ class DishController {
       );
 
       if (!updated) {
-        return res.status(404).json({ error: 'Dish not found' });
+        return errorResponse(res, 'Dish not found', 404);
       }
 
       const updatedDish = await Dish.findByPk(id);
-      res.json(updatedDish);
+      return successResponse(res, 'Dish updated successfully', updatedDish);
     } catch (error) {
-      res.status(400).json({ error: 'Bad Request' });
+      return errorResponse(res, 'Bad Request', 400, error.message);
     }
   }
 
@@ -81,11 +82,11 @@ class DishController {
       const { id } = req.params;
       const deleted = await Dish.destroy({ where: { id } });
       if (!deleted) {
-        return res.status(404).json({ error: 'Dish not found' });
+        return errorResponse(res, 'Dish not found', 404);
       }
-      res.status(204).send();
+      return successResponse(res, 'Dish deleted successfully', null, 204);
     } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      return errorResponse(res, 'Internal Server Error', 500, error.message);
     }
   }
 }
