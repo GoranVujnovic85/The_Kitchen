@@ -1,4 +1,24 @@
 {
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "username": "user1",
+      "email": "user1@yahoo.com",
+      "password": "password123",
+      "role": "user"
+    },
+    {
+      "username": "user2",
+      "email": "user2@gmail.com",
+      "password": "password123",
+      "role": "user"
+    }
+  ],
   "dishes": [
     {
       "name": "Podvarak in sac",

@@ -16,12 +16,14 @@ app.use('/uploads', express.static('uploads'));                                 
 const dishRoutes = require('./routes/dishRoutes');
 const contactMessageRoutes = require("./routes/contactMessageRoutes");
 const dailyMenuRoutes = require('./routes/dailyMenuRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 
 // Define API routes
 app.use('/api', dishRoutes);
 app.use("/api", contactMessageRoutes);
 app.use('/api', dailyMenuRoutes);
+app.use('/api', userRoutes);
 
 
 // Test database connection before starting the server

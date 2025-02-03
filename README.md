@@ -66,6 +66,14 @@
 
 ## 📝 Input Template ✏️✏️✏️
 
+"users": 
+{
+  "username": "admin",
+  "email": "admin@gmail.com",
+  "password": "admin123",
+  "role": "admin"
+}
+
 "dishes":
  {
   "name": "name of dish",
@@ -73,6 +81,13 @@
   "price": 0.00,
   "image": "uploads/nameofpicture.png"
 }
+
+"dailyMenus": 
+{
+  "date": "2025-02-02",
+  "dishes": [1, 2]
+}
+
 "contactMessages":
 {
   "name": "James Anderson",
@@ -81,6 +96,7 @@
   "message": "Hello, I would like to know more about your catering services.",
   "status": "new"
 }
+
 
 ## 📂 Project Structure
 
@@ -180,3 +196,22 @@ The_Kitchen/
 📌 npm install multer   
 📌 create uploads file  
 📌 create utils/responseHandler.js
+📌 npx nodemon server.js
+
+
+
+
+
+
+
+
+## Validation 
+⚠️ **FIX in future:** 
+
+👉 you can add the same user several times to the database
+👉
+👉
+👉
+👉
+👉
+👉

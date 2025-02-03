@@ -5,11 +5,28 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const mockData = JSON.parse(fs.readFileSync(path.join(__dirname, 'mockData.json'), 'utf-8'));
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     try {
+
+      // Insert users
+      const hashedUsers = await Promise.all(
+        mockData.users.map(async (user) => ({
+          username: user.username,
+          email: user.email,
+          password: await bcrypt.hash(user.password, 10), // Hash lozinke
+          role: user.role,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }))
+      );
+
+      await queryInterface.bulkInsert('Users', hashedUsers);
+      console.log("Inserted Users:", hashedUsers); 
+
       // Insert dishes data
       const insertedDishes = await queryInterface.bulkInsert(
         'Dishes',
@@ -96,6 +113,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('Users', null, {});
     await queryInterface.bulkDelete('DailyMenuDishes', null, {});
     await queryInterface.bulkDelete('DailyMenus', null, {});
     await queryInterface.bulkDelete('Dishes', null, {});
