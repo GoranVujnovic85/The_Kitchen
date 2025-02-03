@@ -19,6 +19,12 @@
       "image": "uploads/Fresh cabbage in sac.png"
     }
   ],
+  "dailyMenus": [
+    {
+      "date": "2025-02-02",
+      "dishes": [1, 2]
+    }
+  ],
   "contactMessages": [
     {
       "name": "James Anderson",

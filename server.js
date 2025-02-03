@@ -5,20 +5,23 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const { sequelize } = require('./config/database');              // Import the Sequelize instance
+const { sequelize } = require('./config/database');                                 // Import the Sequelize instance
+
 
 // Middleware
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));                 // Enables the display of images
+app.use('/uploads', express.static('uploads'));                                     // Enables the display of images
 
 // Import routes
 const dishRoutes = require('./routes/dishRoutes');
 const contactMessageRoutes = require("./routes/contactMessageRoutes");
+const dailyMenuRoutes = require('./routes/dailyMenuRoutes');
 
 
 // Define API routes
 app.use('/api', dishRoutes);
 app.use("/api", contactMessageRoutes);
+app.use('/api', dailyMenuRoutes);
 
 
 // Test database connection before starting the server
@@ -34,6 +37,7 @@ const testConnection = async () => {
 
 // Call the testConnection function
 testConnection();
+
 
 // Start server
 const PORT = process.env.PORT || 3000;

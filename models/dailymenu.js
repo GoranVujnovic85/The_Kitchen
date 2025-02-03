@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      DailyMenu.belongsToMany(models.Dish, { through: 'DailyMenuDishes', foreignKey: 'dailyMenuId' });
+      DailyMenu.belongsToMany(models.Dish, { through: 'DailyMenuDishes', foreignKey: 'dailyMenuId',  as: 'dishes' });
     }
   }
   DailyMenu.init({

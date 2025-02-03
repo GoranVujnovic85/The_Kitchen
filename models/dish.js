@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Dish.belongsToMany(models.DailyMenu, { through: 'DailyMenuDishes', foreignKey: 'dishId' });
+      Dish.belongsToMany(models.DailyMenu, { through: 'DailyMenuDishes', foreignKey: 'dishId', as: 'dailyMenus' });
       Dish.hasMany(models.OrderItem, { foreignKey: 'dishId', onDelete: 'CASCADE' });
       Dish.hasMany(models.Feedback, { foreignKey: 'dishId', onDelete: 'SET NULL' });
     }
