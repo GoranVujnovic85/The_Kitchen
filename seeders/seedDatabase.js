@@ -11,77 +11,76 @@ const mockData = JSON.parse(fs.readFileSync(path.join(__dirname, 'mockData.json'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     try {
-
-      // Insert users
+      //  Insert Users
       const hashedUsers = await Promise.all(
         mockData.users.map(async (user) => ({
           username: user.username,
           email: user.email,
-          password: await bcrypt.hash(user.password, 10), // Hash lozinke
+          password: await bcrypt.hash(user.password, 10),
           role: user.role,
           createdAt: new Date(),
           updatedAt: new Date()
         }))
       );
-
       await queryInterface.bulkInsert('Users', hashedUsers);
-      console.log("Inserted Users:", hashedUsers); 
 
-      // Insert dishes data
-      const insertedDishes = await queryInterface.bulkInsert(
-        'Dishes',
-        mockData.dishes.map(dish => ({
-          name: dish.name,
-          description: dish.description,
-          price: dish.price,
-          image: dish.image,
-          createdAt: new Date(),
-          updatedAt: new Date()
-        })),
-        { returning: true }
-      );
+      // Insert Orders (Users must exist first)
+      await queryInterface.bulkInsert('Orders', mockData.orders.map(order => ({
+        userId: order.userId, 
+        date: new Date(order.date),
+        status: order.status,
+        totalPrice: order.totalPrice,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })));
 
-      console.log("Inserted Dishes:", insertedDishes);                                           // Check input
+      // Insert Payments (Orders must exist first)
+      await queryInterface.bulkInsert('Payments', mockData.payments.map(payment => ({
+        orderId: payment.orderId,
+        method: payment.method,
+        status: payment.status,
+        paymentDate: new Date(payment.paymentDate),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })));
 
-      // If bulkInsert doesn't return an array, pull the data manually
+      // Insert Dishes
+      await queryInterface.bulkInsert('Dishes', mockData.dishes.map(dish => ({
+        name: dish.name,
+        description: dish.description,
+        price: dish.price,
+        image: dish.image,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })));
+
+      // Insert DailyMenus
+      await queryInterface.bulkInsert('DailyMenus', mockData.dailyMenus.map(menu => ({
+        date: new Date(menu.date).toISOString().slice(0, 10),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })));
+
+      // Insert DailyMenuDishes (after DailyMenus and Dishes)
       const dishesFromDB = await queryInterface.sequelize.query('SELECT id, name FROM `Dishes`;');
+      const menusFromDB = await queryInterface.sequelize.query('SELECT id, date FROM `DailyMenus`;');
+
       const dishMap = {};
       dishesFromDB[0].forEach(dish => {
         dishMap[dish.name] = dish.id;
       });
 
-      console.log("Dish Map:", dishMap);                                                   // Check the mapping
-
-      // Insert daily menus data
-      const insertedMenus = await queryInterface.bulkInsert(
-        'DailyMenus',
-        mockData.dailyMenus.map(menu => ({
-          date: new Date(menu.date).toISOString().slice(0, 10),                          // Correct date format
-          createdAt: new Date(),
-          updatedAt: new Date()
-        })),
-        { returning: true }
-      );
-
-      console.log("Inserted Menus:", insertedMenus);                                             // Check input
-
-     // If bulkInsert doesn't return an array, pull the data
-      const menusFromDB = await queryInterface.sequelize.query('SELECT id, date FROM `DailyMenus`;');
       const menuMap = {};
       menusFromDB[0].forEach(menu => {
-      const formattedDate = menu.date.toISOString().slice(0, 10);                      // Ensure the same format
-      menuMap[formattedDate] = menu.id;
+        const formattedDate = menu.date.toISOString().slice(0, 10);
+        menuMap[formattedDate] = menu.id;
       });
 
-      console.log("Menu Map:", menuMap);                                                   // Check the mapping
-
-      // Insert DailyMenu-Dish relations
       const dailyMenuDishRelations = [];
       mockData.dailyMenus.forEach(menu => {
         menu.dishes.forEach(dishIndex => {
-          const dishName = mockData.dishes[dishIndex - 1].name;   // Get the name of the dish based on the index
-          if (dishMap[dishName]) {
-            console.log(`Looking for menuId with date: ${menu.date}, found: ${menuMap[menu.date]}`);
+          const dishName = mockData.dishes[dishIndex - 1].name;
+          if (dishMap[dishName] && menuMap[menu.date]) {
             dailyMenuDishRelations.push({
               dailyMenuId: menuMap[menu.date],
               dishId: dishMap[dishName],
@@ -92,11 +91,9 @@ module.exports = {
         });
       });
 
-      console.log("DailyMenuDishes Relations:", dailyMenuDishRelations);                  // Relationship check
-
       await queryInterface.bulkInsert('DailyMenuDishes', dailyMenuDishRelations);
 
-      // Insert contact messages
+      // Insert Contact Messages
       await queryInterface.bulkInsert('ContactMessages', mockData.contactMessages.map(msg => ({
         name: msg.name,
         email: msg.email,
@@ -113,10 +110,12 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Users', null, {});
     await queryInterface.bulkDelete('DailyMenuDishes', null, {});
     await queryInterface.bulkDelete('DailyMenus', null, {});
     await queryInterface.bulkDelete('Dishes', null, {});
     await queryInterface.bulkDelete('ContactMessages', null, {});
+    await queryInterface.bulkDelete('Payments', null, {});
+    await queryInterface.bulkDelete('Orders', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
   }
 };
