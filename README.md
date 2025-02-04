@@ -75,7 +75,7 @@
 }
 
 "dishes":
- {
+{
   "name": "name of dish",
   "description": "something about it",
   "price": 0.00,
@@ -88,6 +88,31 @@
   "dishes": [1, 2]
 }
 
+"orders": 
+{
+  "id": 1,
+  "userId": 1,
+  "date": "2025-02-04T08:05:28.000Z",
+  "status": "pending",
+  "totalPrice": 20.99
+}
+
+"orderItems": 
+{
+  "orderId": 1,
+  "dishId": 1,
+  "quantity": 2,
+  "price": 570.00
+}
+
+"payments": 
+{
+  "orderId": 1,
+  "method": "Credit Card",
+  "status": "Completed",
+  "paymentDate": "2025-02-02T10:30:00Z"
+}
+    
 "contactMessages":
 {
   "name": "James Anderson",
@@ -95,6 +120,14 @@
   "subject": "Inquiry about services",
   "message": "Hello, I would like to know more about your catering services.",
   "status": "new"
+}
+
+"feedbacks": 
+{
+  "userId": 1,
+  "dishId": 1,
+  "rating": 5,
+  "comment": "Amazing taste! Highly recommended."
 }
 
 

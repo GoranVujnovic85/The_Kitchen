@@ -104,12 +104,34 @@ module.exports = {
         updatedAt: new Date()
       })));
 
+      // Insert OrderItems
+      await queryInterface.bulkInsert('OrderItems', mockData.orders.map(order => ({
+        orderId: order.id,
+        dishId: Math.floor(Math.random() * mockData.dishes.length) + 1,                // Assign a random dish
+        quantity: Math.floor(Math.random() * 5) + 1,
+        price: (Math.random() * 500).toFixed(2),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })));
+
+      // Insert Feedbacks (Users and Dishes must exist first)
+      await queryInterface.bulkInsert('Feedbacks', mockData.feedbacks.map(feedback => ({
+        userId: feedback.userId,
+        dishId: feedback.dishId,
+        rating: feedback.rating,
+        comment: feedback.comment,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })));
+
     } catch (error) {
       console.error("Error during seeding: ", error);
     }
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('Feedbacks', null, {});
+    await queryInterface.bulkDelete('OrderItems', null, {});
     await queryInterface.bulkDelete('DailyMenuDishes', null, {});
     await queryInterface.bulkDelete('DailyMenus', null, {});
     await queryInterface.bulkDelete('Dishes', null, {});

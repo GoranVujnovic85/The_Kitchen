@@ -19,6 +19,8 @@ const dailyMenuRoutes = require('./routes/dailyMenuRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const orderItemRoutes = require('./routes/orderItemRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
 
 
 
@@ -29,6 +31,8 @@ app.use('/api', dailyMenuRoutes);
 app.use('/api', userRoutes);
 app.use('/api', orderRoutes);
 app.use('/api', paymentRoutes);
+app.use('/api', orderItemRoutes);
+app.use('/api', feedbackRoutes);
 
 
 // Test database connection before starting the server
