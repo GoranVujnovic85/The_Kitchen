@@ -4,15 +4,42 @@
 
 const { Router } = require('express');
 const userController = require('../controllers/userController');
-const { isAdmin } = require('../middlewares/authMiddleware');
+const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
+const jwt = require('jsonwebtoken');
 
-const router = Router();
+const publicRouter = Router();
+const privateRouter = Router();
 
-router.post('/users', userController.createUser.bind(userController));
-//router.get('/users', isAdmin, userController.getAllUsers.bind(userController));        // during testing    
-router.get('/users', userController.getAllUsers.bind(userController));
-router.get('/users/:id', userController.getUserById.bind(userController));
-router.put('/users/:id', userController.updateUser.bind(userController));
-router.delete('/users/:id', isAdmin, userController.deleteUser.bind(userController));
+// Public routes (routes available for anyone)
+publicRouter.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        // Verify user credentials
+        const user = await userController.authenticateUser(email, password);
+  
+        if (!user) {
+        return res.status(401).json({ message: 'Invalid credentials' });
+        }
 
-module.exports = router;
+        // Generate JWT token
+        const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+  
+        return res.json({ token });
+    } catch (error) {
+       // If an error occurs, return the appropriate error
+        return res.status(401).json({ message: error.message });
+    }
+});
+
+// Registration route for user creation
+publicRouter.post('/register', userController.createUser.bind(userController)); // Registration
+
+// Other public routes for user-related functionality
+publicRouter.get('/users/:id', userController.getUserById.bind(userController));
+
+// Private routes (authentication required)
+privateRouter.get('/users', authenticateToken, userController.getAllUsers.bind(userController)); 
+privateRouter.put('/users/:id', authenticateToken, userController.updateUser.bind(userController));
+privateRouter.delete('/users/:id', authenticateToken, isAdmin, userController.deleteUser.bind(userController));
+
+module.exports = { publicRouter, privateRouter };

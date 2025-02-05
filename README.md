@@ -49,7 +49,7 @@
 
 
 ## 📜 License
-- license free ⚖️
+- Apache License 2.0 ⚖️
 
 
 ## 🤝 Contributes
@@ -57,8 +57,12 @@
 
 
 ## 📺 Display
-- POST /:       http://localhost:3000 👁️ 
-- GET  /:       http://localhost:3000 🔍
+
+- POST /:      http://localhost:3000/api/public/login  --->  Postman --> raw --> JSON format --> { "email": "admin@gmail.com", "password": "admin123"} 
+
+- GET  /:      http://localhost:3000/api/private/users ---> Postman --> Headers --> Key: Authorization  -->  Value: Bearer kopira_generisni_token
+
+
 - GET  /:       http://localhost:3000 👁️ 
 - PUT  /:       http://localhost:3000 🔍
 - DELETE /:     http://localhost:3000 👁️ 
@@ -234,10 +238,6 @@ The_Kitchen/
 📌 The order of seeding is very important
 
 
-
-
-
-
 ## Validation 
 ⚠️ **FIX in future:** 
 
@@ -248,3 +248,16 @@ The_Kitchen/
 👉
 👉
 👉
+
+
+## ❓ Questions for the client
+
+1. REDIS - data caching?
+2. JWT authentication?
+3. Error logging, log files, winston, morgan?
+4. 
+5. 
+
+
+✨ Conclusion
+I hope you find my projects to be educative and fun. If you encounter errors or have any improvements to make to the projects, don't be shy, go ahead and create a pull request. Happy coding ✨

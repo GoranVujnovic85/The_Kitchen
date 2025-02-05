@@ -4,15 +4,18 @@
 
 const { Router } = require('express');
 const paymentController = require('../controllers/paymentController');
-const { isAdmin } = require('../middlewares/authMiddleware');
+const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
 
-const router = Router();
+const publicRouter = Router();
+const privateRouter = Router();
 
-router.post('/payments', paymentController.createPayment.bind(paymentController));
-// router.get('/payments', isAdmin, paymentController.getAllPayments.bind(paymentController));  // during testing  
-router.get('/payments', paymentController.getAllPayments.bind(paymentController));
-router.get('/payments/:id', paymentController.getPaymentById.bind(paymentController));
-router.put('/payments/:id', paymentController.updatePayment.bind(paymentController));
-router.delete('/payments/:id', isAdmin, paymentController.deletePayment.bind(paymentController));
+// Public routes (anyone can view payments)
+publicRouter.get("/payments", paymentController.getAllPayments.bind(paymentController));
+publicRouter.get("/payments/:id", paymentController.getPaymentById.bind(paymentController));
 
-module.exports = router;
+// Private routes (authentication required for creation and deletion)
+privateRouter.post("/payments", authenticateToken, paymentController.createPayment.bind(paymentController));
+privateRouter.put("/payments/:id", authenticateToken, paymentController.updatePayment.bind(paymentController));
+privateRouter.delete("/payments/:id", authenticateToken, isAdmin, paymentController.deletePayment.bind(paymentController));
+
+module.exports = { publicRouter, privateRouter };

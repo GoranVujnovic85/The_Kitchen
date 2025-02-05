@@ -4,14 +4,18 @@
 
 const { Router } = require('express');
 const dailyMenuController = require('../controllers/dailyMenuController');
-const { isAdmin } = require('../middlewares/authMiddleware');
+const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
 
-const router = Router();
+const publicRouter = Router();
+const privateRouter = Router();
 
-router.post('/daily-menus', isAdmin, dailyMenuController.createDailyMenu.bind(dailyMenuController));
-router.get('/daily-menus', dailyMenuController.getAllDailyMenus.bind(dailyMenuController));
-router.get('/daily-menus/:id', dailyMenuController.getDailyMenuById.bind(dailyMenuController));
-router.put('/daily-menus/:id', isAdmin, dailyMenuController.updateDailyMenu.bind(dailyMenuController));
-router.delete('/daily-menus/:id', isAdmin, dailyMenuController.deleteDailyMenu.bind(dailyMenuController));
+// Public routes (anyone can view daily menus)
+publicRouter.get('/daily-menus', dailyMenuController.getAllDailyMenus.bind(dailyMenuController));
+publicRouter.get('/daily-menus/:id', dailyMenuController.getDailyMenuById.bind(dailyMenuController));
 
-module.exports = router;
+// Private routes (only admin can create, update, or delete daily menus)
+privateRouter.post('/daily-menus', authenticateToken, isAdmin, dailyMenuController.createDailyMenu.bind(dailyMenuController));
+privateRouter.put('/daily-menus/:id', authenticateToken, isAdmin, dailyMenuController.updateDailyMenu.bind(dailyMenuController));
+privateRouter.delete('/daily-menus/:id', authenticateToken, isAdmin, dailyMenuController.deleteDailyMenu.bind(dailyMenuController));
+
+module.exports = { publicRouter, privateRouter };

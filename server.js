@@ -1,38 +1,55 @@
-/*=================================================================================================================*/
-/*--------------------------------- Main server file, initializes Express app -------------------------------------*/
-/*=================================================================================================================*/
+/*========================================================================================================================================*/
+/*---------------------------------------------- Main server file, initializes Express app -----------------------------------------------*/
+/*========================================================================================================================================*/
 
 const express = require('express');
 const app = express();
 require('dotenv').config();
 const { sequelize } = require('./config/database');                                 // Import the Sequelize instance
 
+// This function is used to authenticate the user using a JWT token
+const { authenticateToken } = require('./middlewares/authMiddleware');   
+
+
 
 // Middleware
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));                                     // Enables the display of images
 
+
 // Import routes
-const dishRoutes = require('./routes/dishRoutes');
-const contactMessageRoutes = require("./routes/contactMessageRoutes");
-const dailyMenuRoutes = require('./routes/dailyMenuRoutes');
-const userRoutes = require('./routes/userRoutes');
-const orderRoutes = require('./routes/orderRoutes');
-const paymentRoutes = require('./routes/paymentRoutes');
-const orderItemRoutes = require('./routes/orderItemRoutes');
-const feedbackRoutes = require('./routes/feedbackRoutes');
+const { publicRouter: contactMessagePublicRoutes, privateRouter: contactMessagePrivateRoutes } = require("./routes/contactMessageRoutes");
+const { publicRouter: dailyMenuPublicRoutes, privateRouter: dailyMenuPrivateRoutes } = require("./routes/dailyMenuRoutes");
+const { publicRouter: dishPublicRoutes, privateRouter: dishPrivateRoutes } = require("./routes/dishRoutes");
+const { publicRouter: feedbackPublicRoutes, privateRouter: feedbackPrivateRoutes } = require("./routes/feedbackRoutes");
+const { publicRouter: orderItemPublicRoutes, privateRouter: orderItemPrivateRoutes } = require("./routes/orderItemRoutes");
+const { publicRouter: orderPublicRoutes, privateRouter: orderPrivateRoutes } = require("./routes/orderRoutes");
+const { publicRouter: paymentPublicRoutes, privateRouter: paymentPrivateRoutes } = require("./routes/paymentRoutes");
+const { publicRouter: userPublicRoutes, privateRouter: userPrivateRoutes } = require('./routes/userRoutes');
 
 
 
-// Define API routes
-app.use('/api', dishRoutes);
-app.use("/api", contactMessageRoutes);
-app.use('/api', dailyMenuRoutes);
-app.use('/api', userRoutes);
-app.use('/api', orderRoutes);
-app.use('/api', paymentRoutes);
-app.use('/api', orderItemRoutes);
-app.use('/api', feedbackRoutes);
+// Public routes (no authentication needed)
+app.use('/api/public', contactMessagePublicRoutes);
+app.use('/api/public', dailyMenuPublicRoutes);
+app.use('/api/public', dishPublicRoutes);
+app.use('/api/public', feedbackPublicRoutes);
+app.use('/api/public', orderItemPublicRoutes);
+app.use('/api/public', orderPublicRoutes);
+app.use('/api/public', paymentPublicRoutes);
+app.use('/api/public', userPublicRoutes);   
+
+
+// Private routes (authentication required)
+app.use('/api/private', authenticateToken, contactMessagePrivateRoutes);
+app.use('/api/private', authenticateToken, dailyMenuPrivateRoutes);
+app.use('/api/private', authenticateToken, dishPrivateRoutes);
+app.use('/api/private', authenticateToken, feedbackPrivateRoutes);
+app.use('/api/private', authenticateToken, orderItemPrivateRoutes);
+app.use('/api/private', authenticateToken, orderPrivateRoutes);
+app.use('/api/private', authenticateToken, paymentPrivateRoutes);
+app.use('/api/private', authenticateToken, userPrivateRoutes);  
+
 
 
 // Test database connection before starting the server

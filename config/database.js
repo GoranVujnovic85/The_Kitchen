@@ -12,3 +12,4 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 
 // Export the Sequelize instance 
 module.exports = { sequelize };
+

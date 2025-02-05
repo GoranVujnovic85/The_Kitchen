@@ -4,14 +4,18 @@
 
 const { Router } = require('express');
 const { dishControllerInstance, upload } = require('../controllers/dishController');
-const { isAdmin } = require('../middlewares/authMiddleware');
+const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
 
-const router = Router();
+const publicRouter = Router();
+const privateRouter = Router();
 
-router.post('/dishes', isAdmin, dishControllerInstance.createDish.bind(dishControllerInstance));
-router.get('/dishes', dishControllerInstance.getAllDishes.bind(dishControllerInstance));
-router.get('/dishes/:id', upload.single('image'), dishControllerInstance.getDishById.bind(dishControllerInstance));
-router.put('/dishes/:id', isAdmin, upload.single('image'),dishControllerInstance.updateDish.bind(dishControllerInstance));
-router.delete('/dishes/:id', isAdmin, dishControllerInstance.deleteDish.bind(dishControllerInstance));
+// Public routes (anyone can view dishes)
+publicRouter.get('/dishes', dishControllerInstance.getAllDishes.bind(dishControllerInstance));
+publicRouter.get('/dishes/:id', dishControllerInstance.getDishById.bind(dishControllerInstance));
 
-module.exports = router;
+// Private routes (only admin can manage dishes)
+privateRouter.post('/dishes', authenticateToken, isAdmin, upload.single('image'), dishControllerInstance.createDish.bind(dishControllerInstance));
+privateRouter.put('/dishes/:id', authenticateToken, isAdmin, upload.single('image'), dishControllerInstance.updateDish.bind(dishControllerInstance));
+privateRouter.delete('/dishes/:id', authenticateToken, isAdmin, dishControllerInstance.deleteDish.bind(dishControllerInstance));
+
+module.exports = { publicRouter, privateRouter };

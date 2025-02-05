@@ -4,15 +4,18 @@
 
 const { Router } = require('express');
 const orderController = require('../controllers/orderController');
-const { isAdmin } = require('../middlewares/authMiddleware');
+const { authenticateToken, isAdmin } = require('../middlewares/authMiddleware');
 
-const router = Router();
+const publicRouter = Router();
+const privateRouter = Router();
 
-router.post('/orders', orderController.createOrder.bind(orderController));
-//router.get('/orders', isAdmin, orderController.getAllOrders.bind(orderController));      // during testing  
-router.get('/orders', orderController.getAllOrders.bind(orderController));
-router.get('/orders/:id', orderController.getOrderById.bind(orderController));
-router.put('/orders/:id', orderController.updateOrder.bind(orderController));
-router.delete('/orders/:id', isAdmin, orderController.deleteOrder.bind(orderController));
+// Public routes (anyone can view orders)
+publicRouter.get("/orders", orderController.getAllOrders.bind(orderController));
+publicRouter.get("/orders/:id", orderController.getOrderById.bind(orderController));
 
-module.exports = router;
+// Private routes (only admin can manage orders)
+privateRouter.post("/orders", authenticateToken, orderController.createOrder.bind(orderController));
+privateRouter.put("/orders/:id", authenticateToken, orderController.updateOrder.bind(orderController));
+privateRouter.delete("/orders/:id", authenticateToken, isAdmin, orderController.deleteOrder.bind(orderController));
+
+module.exports = { publicRouter, privateRouter };
