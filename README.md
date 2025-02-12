@@ -5,7 +5,7 @@
 
 
 ## 🚧 Project status
-- Current status: In development!📜
+- Current status: Project completed!📜
 
 
 ## 🛠️ Technologies 
