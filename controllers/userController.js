@@ -1,3 +1,20 @@
+/**
+ * The_Kitchen - Node.js backend for food ordering system
+ *
+ * @license MIT
+ * @author Goran Vujnović
+ * @year 2025
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED.
+ */
 /*=============================================================================================*/
 /*------------------------------------ CRUD operations for User -------------------------------*/
 /*=============================================================================================*/
@@ -5,11 +22,14 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const { successResponse, errorResponse } = require('../utils/responseHandler');
+const jwt = require('jsonwebtoken');
+
 
 class UserController {
 
     // Functionality for user authentication
     async authenticateUser(email, password) {
+
         try {
             // Check if email and password are entered
             if (!email || !password) {
@@ -34,9 +54,33 @@ class UserController {
         } catch (error) {
             throw error;  // Throw an error if something goes wrong
         }
+
     }
 
+
+    // Public routes (routes available for anyone)
+    async loginUser(req, res) {
+
+        try {
+            const { email, password } = req.body;
+            const user = await this.authenticateUser(email, password);
+
+            const token = jwt.sign(
+                { userId: user.id, role: user.role },
+                process.env.JWT_SECRET,
+                { expiresIn: '24h' }
+            );
+
+            return successResponse(res, "Login successful.", { token });
+        } catch (error) {
+            return errorResponse(res, error.message, 401);
+        }
+
+    }
+
+
     async createUser(req, res) {
+
         try {
             const { username, email, password, role } = req.body;
     
@@ -53,9 +97,12 @@ class UserController {
         } catch (error) {
             return errorResponse(res, "Error creating user.", 500, error.message);
         }
+
     }
 
+
     async getAllUsers(req, res) {
+
         try {
             const users = await User.findAll({
                 order: [['createdAt', 'DESC']],
@@ -65,9 +112,12 @@ class UserController {
         } catch (error) {
             return errorResponse(res, "Error retrieving users.", 500, error.message);
         }
+
     }
 
+
     async getUserById(req, res) {
+
         try {
             const { id } = req.params;
             const user = await User.findByPk(id);
@@ -80,9 +130,12 @@ class UserController {
         } catch (error) {
             return errorResponse(res, "Error retrieving user.", 500, error.message);
         }
+
     }
 
+
     async updateUser(req, res) {
+
         try {
             const { id } = req.params;
             const { name, email, password, role } = req.body;
@@ -94,7 +147,7 @@ class UserController {
 
             if (name) user.name = name;
             if (email) user.email = email;
-            if (password) user.password = password;
+            if (password) user.password = password;           
             if (role) user.role = role;
 
             await user.save();
@@ -103,9 +156,12 @@ class UserController {
         } catch (error) {
             return errorResponse(res, "Error updating user.", 500, error.message);
         }
+
     }
 
+
     async deleteUser(req, res) {
+
         try {
             const { id } = req.params;
             const user = await User.findByPk(id);
@@ -120,6 +176,7 @@ class UserController {
         } catch (error) {
             return errorResponse(res, "Error deleting user.", 500, error.message);
         }
+        
     }
 }
 

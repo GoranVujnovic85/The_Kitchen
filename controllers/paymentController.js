@@ -1,3 +1,20 @@
+/**
+ * The_Kitchen - Node.js backend for food ordering system
+ *
+ * @license MIT
+ * @author Goran Vujnović
+ * @year 2025
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED.
+ */
 /*=======================================================================================*/
 /*------------------------------- CRUD operations for Payment ---------------------------*/
 /*=======================================================================================*/
@@ -6,7 +23,9 @@ const { Payment, Order } = require('../models');
 const responseHandler = require('../utils/responseHandler');
 
 class PaymentController {
+
     async createPayment(req, res) {
+        
         try {
             const { orderId, method, status, paymentDate } = req.body;
 
@@ -21,18 +40,24 @@ class PaymentController {
         } catch (error) {
             return responseHandler.errorResponse(res, 'Error creating payment', 500, error.message);
         }
+
     }
 
+
     async getAllPayments(req, res) {
+
         try {
             const payments = await Payment.findAll({ include: Order });
             return responseHandler.successResponse(res, 'Payments retrieved successfully', payments);
         } catch (error) {
             return responseHandler.errorResponse(res, 'Error retrieving payments', 500, error.message);
         }
+
     }
 
+
     async getPaymentById(req, res) {
+
         try {
             const { id } = req.params;
             const payment = await Payment.findByPk(id, { include: Order });
@@ -45,9 +70,12 @@ class PaymentController {
         } catch (error) {
             return responseHandler.errorResponse(res, 'Error retrieving payment', 500, error.message);
         }
+
     }
 
+
     async updatePayment(req, res) {
+
         try {
             const { id } = req.params;
             const { method, status, paymentDate } = req.body;
@@ -62,9 +90,12 @@ class PaymentController {
         } catch (error) {
             return responseHandler.errorResponse(res, 'Error updating payment', 500, error.message);
         }
+
     }
 
+
     async deletePayment(req, res) {
+
         try {
             const { id } = req.params;
             const payment = await Payment.findByPk(id);
@@ -78,6 +109,7 @@ class PaymentController {
         } catch (error) {
             return responseHandler.errorResponse(res, 'Error deleting payment', 500, error.message);
         }
+        
     }
 }
 

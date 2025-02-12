@@ -18,6 +18,14 @@
 - Thunder Client/Postman 🌩️
 
 
+## 📜 License
+- MIT License ⚖️
+
+
+## 🤝 Contributes
+- They are welcome! 🙌
+
+
 ## Platforms: ⚙️🔧🔨
 
 - `npm init -y`  
@@ -46,93 +54,6 @@
 - `npm install morgan cors`  
   - **morgan**: A middleware for logging HTTP requests, useful for debugging and tracking activity.  
   - **cors**: A middleware to configure Cross-Origin Resource Sharing (CORS), allowing APIs to handle requests from different origins.
-
-
-## 📜 License
-- Apache License 2.0 ⚖️
-
-
-## 🤝 Contributes
-- They are welcome! 🙌
-
-
-## 📺 Display
-
-- POST /:      http://localhost:3000/api/public/login  --->  Postman --> raw --> JSON format --> { "email": "admin@gmail.com", "password": "admin123"} 
-
-- GET  /:      http://localhost:3000/api/private/users ---> Postman --> Headers --> Key: Authorization  -->  Value: Bearer kopira_generisni_token
-
-
-- GET  /:       http://localhost:3000 👁️ 
-- PUT  /:       http://localhost:3000 🔍
-- DELETE /:     http://localhost:3000 👁️ 
-
-
-## 📝 Input Template ✏️✏️✏️
-
-"users": 
-{
-  "username": "admin",
-  "email": "admin@gmail.com",
-  "password": "admin123",
-  "role": "admin"
-}
-
-"dishes":
-{
-  "name": "name of dish",
-  "description": "something about it",
-  "price": 0.00,
-  "image": "uploads/nameofpicture.png"
-}
-
-"dailyMenus": 
-{
-  "date": "2025-02-02",
-  "dishes": [1, 2]
-}
-
-"orders": 
-{
-  "id": 1,
-  "userId": 1,
-  "date": "2025-02-04T08:05:28.000Z",
-  "status": "pending",
-  "totalPrice": 20.99
-}
-
-"orderItems": 
-{
-  "orderId": 1,
-  "dishId": 1,
-  "quantity": 2,
-  "price": 570.00
-}
-
-"payments": 
-{
-  "orderId": 1,
-  "method": "Credit Card",
-  "status": "Completed",
-  "paymentDate": "2025-02-02T10:30:00Z"
-}
-    
-"contactMessages":
-{
-  "name": "James Anderson",
-  "email": "jemes.anderson@gmail.com",
-  "subject": "Inquiry about services",
-  "message": "Hello, I would like to know more about your catering services.",
-  "status": "new"
-}
-
-"feedbacks": 
-{
-  "userId": 1,
-  "dishId": 1,
-  "rating": 5,
-  "comment": "Amazing taste! Highly recommended."
-}
 
 
 ## 📂 Project Structure
@@ -195,9 +116,6 @@ The_Kitchen/
 |-- server.js                                    // Main server file, initializes Express app
 
 
-
-
-
 ## 🏁 The first steps of the project
 ⚠️ **Warning:** ❗ These steps are the creator's little reminder. It will be very unreasonable for those who have not passed this project. ❗
 
@@ -236,27 +154,6 @@ The_Kitchen/
 📌 npx nodemon server.js
 📌 Role-based access control (RBAC)
 📌 The order of seeding is very important
-
-
-## Validation 
-⚠️ **FIX in future:** 
-
-👉 you can add the same user several times to the database
-👉
-👉
-👉
-👉
-👉
-👉
-
-
-## ❓ Questions for the client
-
-1. REDIS - data caching?
-2. JWT authentication?
-3. Error logging, log files, winston, morgan?
-4. 
-5. 
 
 
 ✨ Conclusion

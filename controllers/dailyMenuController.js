@@ -1,3 +1,20 @@
+/**
+ * The_Kitchen - Node.js backend for food ordering system
+ *
+ * @license MIT
+ * @author Goran Vujnović
+ * @year 2025
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED.
+ */
 /*=========================================================================================================*/
 /*-------------------------------------- CRUD operations for dailyMenu ------------------------------------*/
 /*=========================================================================================================*/
@@ -8,6 +25,7 @@ const { successResponse, errorResponse } = require('../utils/responseHandler');
 class DailyMenuController {
 
     async createDailyMenu(req, res) {
+        
         try {
             const { date, dishIds } = req.body;
 
@@ -18,7 +36,7 @@ class DailyMenuController {
             // Create a new daily menu
             const dailyMenu = await DailyMenu.create({ date });
 
-            // Adding dishes to the daily menu (connection to the Dish model) --> be careful, here it adds by ID and adds by NAME of the dish
+            // Adding dishes to the daily menu (connection to the Dish model) --> be careful, here it adds by ID and adds by NAME of the dish --> dishIds for json <---
             const dishes = await Dish.findAll({ where: { id: dishIds } });
             await dailyMenu.addDishes(dishes);
 

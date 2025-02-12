@@ -1,3 +1,20 @@
+/**
+ * The_Kitchen - Node.js backend for food ordering system
+ *
+ * @license MIT
+ * @author Goran Vujnović
+ * @year 2025
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED.
+ */
 /*=================================================================================================*/
 /*---------------------------------- CRUD operations for orderItem --------------------------------*/
 /*=================================================================================================*/
@@ -9,6 +26,7 @@ class OrderItemController {
     constructor() {}
 
     async create(req, res) {
+        
         try {
             const { orderId, dishId, quantity, price } = req.body;
             const orderItem = await OrderItem.create({ orderId, dishId, quantity, price });
@@ -16,6 +34,7 @@ class OrderItemController {
         } catch (error) {
             responseHandler.errorResponse(res, 'Error creating order item', 500, error);
         }
+
     }
 
     async getAll(req, res) {
@@ -25,6 +44,7 @@ class OrderItemController {
         } catch (error) {
             responseHandler.errorResponse(res, 'Error retrieving order items', 500, error);
         }
+
     }
 
     async getById(req, res) {
@@ -38,6 +58,7 @@ class OrderItemController {
         } catch (error) {
             responseHandler.errorResponse(res, 'Error retrieving order item', 500, error);
         }
+
     }
 
     async update(req, res) {
@@ -53,6 +74,7 @@ class OrderItemController {
         } catch (error) {
             responseHandler.errorResponse(res, 'Error updating order item', 500, error);
         }
+
     }
 
     async delete(req, res) {
@@ -67,6 +89,7 @@ class OrderItemController {
         } catch (error) {
             responseHandler.errorResponse(res, 'Error deleting order item', 500, error);
         }
+        
     }
 }
 
