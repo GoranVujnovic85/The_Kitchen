@@ -1,0 +1,41 @@
+version: "3.3"
+
+services:
+  docker-project-backend:  
+    build: .
+    container_name: docker-project-backend-container  # the name of the backend container
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=docker-project-db
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=the_kitchen
+      - DOCKER_ENV=true
+    depends_on:
+      - docker-project-db  # dependency on db service
+    volumes:
+      - .:/app
+    networks:
+      - docker-project-network
+
+  docker-project-db:  # service name for the database
+    image: mysql:5.7
+    container_name: docker-project-db-container  # container name for base
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: the_kitchen
+    ports:
+      - "3306:3306"
+    volumes:
+      - docker-project-db-data:/var/lib/mysql
+    networks:
+      - docker-project-network
+
+networks:
+  docker-project-network:
+    driver: bridge
+
+volumes:
+  docker-project-db-data:
