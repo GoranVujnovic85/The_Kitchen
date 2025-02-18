@@ -71,11 +71,36 @@ class UserController {
                 { expiresIn: '24h' }
             );
 
-            return successResponse(res, "Login successful.", { token });
+            // Set the JWT token in the cookie
+            res.cookie('token', token, {
+                httpOnly: true, // To make sure that only the server can access the cookie
+                secure: process.env.NODE_ENV === 'production', // In production environment only, use https
+                maxAge: 24 * 60 * 60 * 1000, // Set cookie expiration time (24h)
+            });
+
+
+            return successResponse(res, "Login successful.",  { token });
         } catch (error) {
             return errorResponse(res, error.message, 401);
         }
 
+    }
+
+    // Logout functionality
+    async logoutUser(req, res) {
+
+        try {
+            // Remove cookie 'token'
+            res.clearCookie('token', { 
+                httpOnly: true, // Ensure that only the server can access the cookie
+                secure: process.env.NODE_ENV === 'production', // If in production, use HTTPS
+                sameSite: 'Strict' // Additional security - only from the same domain
+            });
+
+            return successResponse(res, "Logout successful.");
+        } catch (error) {
+            return errorResponse(res, "Error during logout.", 500, error.message);
+        }
     }
 
 

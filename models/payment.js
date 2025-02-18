@@ -39,9 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     method: DataTypes.STRING,
     status: DataTypes.STRING,
     paymentDate: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'Payment',
-  });
+  }, { sequelize });
+  
   return Payment;
 };

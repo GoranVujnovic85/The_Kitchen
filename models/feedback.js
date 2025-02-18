@@ -40,9 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     dishId: DataTypes.INTEGER,
     rating: DataTypes.INTEGER,
     comment: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'Feedback',
-  });
+  }, { sequelize });
+  
   return Feedback;
 };

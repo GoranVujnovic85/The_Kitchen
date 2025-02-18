@@ -40,9 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     subject: DataTypes.STRING,
     message: DataTypes.TEXT,
     status: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'ContactMessage',
-  });
+  }, { sequelize });
+  
   return ContactMessage;
 };

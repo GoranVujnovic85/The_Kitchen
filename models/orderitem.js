@@ -40,9 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     dishId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     price: DataTypes.FLOAT
-  }, {
-    sequelize,
-    modelName: 'OrderItem',
-  });
+  }, { sequelize });
+  
   return OrderItem;
 };

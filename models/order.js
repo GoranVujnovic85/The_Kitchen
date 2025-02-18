@@ -41,9 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     status: DataTypes.STRING,
     totalPrice: DataTypes.FLOAT
-  }, {
-    sequelize,
-    modelName: 'Order',
-  });
+  }, { sequelize });
+  
   return Order;
 };

@@ -41,9 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     price: DataTypes.FLOAT,
     image: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Dish',
-  });
+  }, { sequelize });
+  
   return Dish;
 };

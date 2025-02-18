@@ -33,6 +33,7 @@ publicRouter.post('/register', userController.createUser.bind(userController));
 publicRouter.get('/users/:id', userController.getUserById.bind(userController));
 
 // Private routes (authentication required)
+privateRouter.post('/logout', authenticateToken, userController.logoutUser.bind(userController));
 privateRouter.get('/users', authenticateToken, userController.getAllUsers.bind(userController)); 
 privateRouter.put('/users/:id', authenticateToken, userController.updateUser.bind(userController));
 privateRouter.delete('/users/:id', authenticateToken, isAdmin, userController.deleteUser.bind(userController));

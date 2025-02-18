@@ -36,9 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   DailyMenu.init({
     date: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'DailyMenu',
-  });
+  }, { sequelize });
+  
   return DailyMenu;
 };
