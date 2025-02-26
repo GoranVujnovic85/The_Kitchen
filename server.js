@@ -58,14 +58,14 @@ app.use('/api/public', userPublicRoutes);
 
 
 // Private routes (authentication required)
-app.use('/api/private', authenticateToken, contactMessagePrivateRoutes);
-app.use('/api/private', authenticateToken, dailyMenuPrivateRoutes);
-app.use('/api/private', authenticateToken, dishPrivateRoutes);
-app.use('/api/private', authenticateToken, feedbackPrivateRoutes);
-app.use('/api/private', authenticateToken, orderItemPrivateRoutes);
-app.use('/api/private', authenticateToken, orderPrivateRoutes);
-app.use('/api/private', authenticateToken, paymentPrivateRoutes);
-app.use('/api/private', authenticateToken, userPrivateRoutes);  
+app.use('/api/private', contactMessagePrivateRoutes);
+app.use('/api/private', dailyMenuPrivateRoutes);
+app.use('/api/private', dishPrivateRoutes);
+app.use('/api/private', feedbackPrivateRoutes);
+app.use('/api/private', orderItemPrivateRoutes);
+app.use('/api/private', orderPrivateRoutes);
+app.use('/api/private', paymentPrivateRoutes);
+app.use('/api/private', userPrivateRoutes);  
 
 
 

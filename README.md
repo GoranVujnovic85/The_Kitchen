@@ -1,6 +1,6 @@
 # 📚 Project: The_Kitchen
 
-## 👤 About the Author: Hello! I'm Goran Vujnović, a passionate junior software developer with experience in backend development, databases, and API design.If you have any questions or suggestions, feel free to contact me at goranvujnovic85@gmail.com.
+## 👤 About the Author: Hello! I'm Goran Vujnović, a passionate junior software developer specializing in backend development, databases, and API design.If you have any questions or suggestions, feel free to contact me at goranvujnovic85@gmail.com.
 
 
 ## 📖 Description : This is an amazing backend project for a home kitchen that uses a RESTful API and a MySQL database. The plan is to separate the frontend and backend. The backend   will listen on one port, while the frontend will listen on another port on the server side. The frontend will be handled by an external company, while the backend will be managed by Goran.
