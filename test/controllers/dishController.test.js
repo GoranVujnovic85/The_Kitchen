@@ -70,7 +70,11 @@ describe('DishController', () => {
             };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
+            //console.log('Starting test: create dish with image');
+
             await DishController.createDish(req, res);
+
+            //console.log('After controller call');
 
             expect(Dish.create).toHaveBeenCalledWith({
                 name: 'Beans in suc',
@@ -169,12 +173,12 @@ describe('DishController', () => {
     // updateDish
     describe('updateDish', () => {
         it('should update dish with image and return success', async () => {
-            const mockUpdatedDish = { id: 1, name: 'Updated Beans in suc', price: 14.99, image: 'uploads/123-Beans in suc.png' };
+            const mockUpdatedDish = { id: 1, name: 'Updated Beans in suc', price: 999.99, image: 'uploads/123-Beans in suc.png' };
             Dish.update.mockResolvedValue([1]);
             Dish.findByPk.mockResolvedValue(mockUpdatedDish);
             const req = {
                 params: { id: 1 },
-                body: { name: 'Updated Beans in suc', price: 14.99 },
+                body: { name: 'Updated Beans in suc', price: 999.99 },
                 file: { path: 'uploads/123-Beans in suc.png' },
             };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
@@ -182,7 +186,7 @@ describe('DishController', () => {
             await DishController.updateDish(req, res);
 
             expect(Dish.update).toHaveBeenCalledWith(
-                { name: 'Updated Beans in suc.png', price: 999.99, image: 'uploads/123-Beans in suc.png' },
+                { name: 'Updated Beans in suc', price: 999.99, image: 'uploads/123-Beans in suc.png' },
                 { where: { id: 1 } }
             );
             expect(Dish.findByPk).toHaveBeenCalledWith(1);
@@ -193,7 +197,7 @@ describe('DishController', () => {
             const mockUpdatedDish = { id: 1, name: 'Updated Beans in suc', price: 999.99, image: null };
             Dish.update.mockResolvedValue([1]);
             Dish.findByPk.mockResolvedValue(mockUpdatedDish);
-            const req = { params: { id: 1 }, body: { name: 'Updated Beans in suc', price: 14.99 }, file: null };
+            const req = { params: { id: 1 }, body: { name: 'Updated Beans in suc', price: 999.99 }, file: null };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
             await DishController.updateDish(req, res);
@@ -285,7 +289,7 @@ describe('DishController', () => {
         it('should create uploads directory if it does not exist', () => {
             const fsMock = require('fs');
             // Simuliraj da direktorijum ne postoji
-            mockFs({});
+            mockFs({}); // prazna funkcija
             // Pozovi logiku iz kontrolera da kreira direktorijum
             if (!fsMock.existsSync('uploads/')) {
                 fsMock.mkdirSync('uploads/', { recursive: true });

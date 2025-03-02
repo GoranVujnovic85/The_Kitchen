@@ -100,7 +100,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(mockOrderItem);
             const req = { params: { id: 1 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.getById(req, res);
+
             expect(OrderItem.findByPk).toHaveBeenCalledWith(1);
             expect(successResponse).toHaveBeenCalledWith(res, 'Order item retrieved successfully', mockOrderItem);
         });
@@ -109,7 +111,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(null);
             const req = { params: { id: 1 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.getById(req, res);
+
             expect(errorResponse).toHaveBeenCalledWith(res, 'Order item not found', 404);
         });
 
@@ -117,7 +121,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockRejectedValue(new Error('DB error'));
             const req = { params: { id: 1 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.getById(req, res);
+
             expect(errorResponse).toHaveBeenCalledWith(res, 'Error retrieving order item', 500, expect.any(Error));
         });
     });
@@ -136,7 +142,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(mockOrderItem);
             const req = { params: { id: 1 }, body: { quantity: 3, price: 15.99 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.update(req, res);
+
             expect(mockOrderItem.update).toHaveBeenCalledWith({ quantity: 3, price: 15.99 });
             expect(successResponse).toHaveBeenCalledWith(res, 'Order item updated successfully', mockOrderItem);
         });
@@ -145,7 +153,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(null);
             const req = { params: { id: 1 }, body: { quantity: 3, price: 15.99 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.update(req, res);
+
             expect(errorResponse).toHaveBeenCalledWith(res, 'Order item not found', 404);
         });
 
@@ -157,7 +167,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(mockOrderItem);
             const req = { params: { id: 1 }, body: { quantity: 3, price: 15.99 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.update(req, res);
+
             expect(errorResponse).toHaveBeenCalledWith(res, 'Error updating order item', 500, expect.any(Error));
         });
     });
@@ -169,7 +181,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(mockOrderItem);
             const req = { params: { id: 1 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.delete(req, res);
+
             expect(mockOrderItem.destroy).toHaveBeenCalledTimes(1);
             expect(successResponse).toHaveBeenCalledWith(res, 'Order item deleted successfully');
         });
@@ -178,7 +192,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(null);
             const req = { params: { id: 1 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.delete(req, res);
+
             expect(errorResponse).toHaveBeenCalledWith(res, 'Order item not found', 404);
         });
 
@@ -187,7 +203,9 @@ describe('OrderItemController', () => {
             OrderItem.findByPk.mockResolvedValue(mockOrderItem);
             const req = { params: { id: 1 } };
             const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
             await OrderItemController.delete(req, res);
+            
             expect(errorResponse).toHaveBeenCalledWith(res, 'Error deleting order item', 500, expect.any(Error));
         });
     });
