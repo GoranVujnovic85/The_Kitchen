@@ -22,6 +22,14 @@
 const { Dish } = require('../models');
 const { successResponse, errorResponse } = require('../utils/responseHandler');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+
+// Ensure uploads directory exists
+const uploadDir = 'uploads/';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Configure where and how files are stored
 const storage = multer.diskStorage({
@@ -38,6 +46,7 @@ const upload = multer({ storage: storage });
 class DishController {
 
   async createDish(req, res) {
+
     try {
       const { name, price } = req.body;
       const imagePath = req.file ? req.file.path : null;
@@ -50,6 +59,7 @@ class DishController {
   }
   
   async getAllDishes(req, res) {
+
     try {
       const dishes = await Dish.findAll();
       return successResponse(res, 'Dishes retrieved successfully', dishes);
@@ -59,6 +69,7 @@ class DishController {
   }
 
   async getDishById(req, res) {
+
     try {
       const { id } = req.params;
       const dish = await Dish.findByPk(id);
@@ -72,6 +83,7 @@ class DishController {
   }
 
   async updateDish(req, res) {
+
     try {
       const { id } = req.params;
       const { name, price } = req.body;
@@ -94,6 +106,7 @@ class DishController {
   }
 
   async deleteDish(req, res) {
+    
     try {
       const { id } = req.params;
       const deleted = await Dish.destroy({ where: { id } });
@@ -107,7 +120,6 @@ class DishController {
   }
 }
 
-// Create an instance of the class
 const dishControllerInstance = new DishController();
 
-module.exports = { dishControllerInstance, upload };
+module.exports = { dishControllerInstance, upload, storage };

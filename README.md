@@ -17,7 +17,8 @@
 - Node.js 🌐
 - Express.js 🚀
 - MySQL 🗄️
-- Thunder Client/Postman 🌩️
+- Postman 🌩️
+- Jest 🧪
 
 
 ## 📜 License
@@ -57,6 +58,15 @@
   - **morgan**: A middleware for logging HTTP requests, useful for debugging and tracking activity.  
   - **cors**: A middleware to configure Cross-Origin Resource Sharing (CORS), allowing APIs to handle requests from different origins.
 
+- `npm install --save-dev jest supertest`
+  - **jest**: It allows you to write tests that check if your code works as you expect.
+  - **supertest**: A library in the Node.js ecosystem that serves to test HTTP servers, i.e. APIs.
+
+- `npm install --save-dev mock-fs`
+  - **mock-fs**: A library that replaces the actual file system with a mock version.
+
+
+
 
 ## 📂 Project Structure
 
@@ -72,6 +82,7 @@
 -  |   |-- paymentController.js                     // CRUD operations for Payment
 -  |   |-- contactMessageController.js              // CRUD operations for ContactMessage
 -  |   |-- feedbackController.js                    // CRUD operations for Feedback
+-  |   |-- userController.js                        // CRUD operations for User
 -  |-- migrations/
 -  |   |-- 20230123000000-create-user.js            // Migration for User table
 -  |   |-- 20230123000100-create-dailyMenu.js       // Migration for DailyMenu table
@@ -80,7 +91,6 @@
 -  |   |-- 20230123000400-create-orderItem.js       // Migration for OrderItem table
 -  |   |-- 20230123000500-create-payment.js         // Migration for Payment table
 -  |   |-- 20230123000600-create-contactMessage.js  // Migration for ContactMessage table
--  |   |-- userController.js                        // CRUD operations for User
 -  |   |-- 20230123000700-create-feedback.js        // Migration for Feedback table
 -  |   |-- 20250201062800-create-dailyMenuDishes.js // Pivot table for DailyMenus and Dishes
 -  |-- models/
@@ -110,6 +120,15 @@
 -  |-- utils/
 -  |   |-- responseHandler.js                       // Utility for standardizing API responses
 -  |-- uploads/                                     // Folder for storing dish and order images
+-  |-- test/                                        // Root test folder
+-  |   |-- middlewares/                             // Tests for middlewares
+-  |   |   |-- authMiddleware.test.js               // Tests for authMiddleware
+-  |   |-- controllers/                             // Tests for controllers
+-  |   |   |-- userController.test.js               // Tests for userController
+-  |   |   |-- paymentController.test.js            // Tests for paymentController
+-  |   |-- routes/                                  // Tests for routes
+-  |   |   |-- userRoutes.test.js                   // Tests for userRoutes
+-  |   |   |-- paymentRoutes.test.js                // Tests for paymentRoutes
 -  |-- .env                                         // Environment variables
 -  |-- .gitignore                                   // Files and folders to ignore in Git
 -  |-- package.json                                 // Node.js dependencies and scripts
@@ -145,7 +164,7 @@
 -  ✅ Rutes implementation
 -  ✅ server.js implementation
 -  ✅ Starts server
--    👉 node server.js
+-   👉 node server.js
 -  ✅ Seeders implementation
 -    👉 npx sequelize-cli db:seed:all
 -    👉 npx sequelize-cli db:seed:undo
@@ -155,6 +174,9 @@
 -  ✅ npx nodemon server.js
 -  ✅ Role-based access control (RBAC)
 -  ✅ The order of seeding is very important
+-  ✅ JEST test
+-     👉  npm test
+-     👉  npm test -- userRoutes.test.js
 
 
 ## ✨ Conclusion
