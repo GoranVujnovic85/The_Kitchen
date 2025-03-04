@@ -22,6 +22,7 @@ const { publicRouter, privateRouter } = require('../../routes/orderRoutes');
 const orderController = require('../../controllers/orderController');
 const { authenticateToken, isAdmin } = require('../../middlewares/authMiddleware');
 
+// Mock controller
 jest.mock('../../controllers/orderController', () => ({
     createOrder: jest.fn(),
     getOrderById: jest.fn(),
@@ -30,11 +31,13 @@ jest.mock('../../controllers/orderController', () => ({
     deleteOrder: jest.fn(),
 }));
 
+// Mock middleware
 jest.mock('../../middlewares/authMiddleware', () => ({
     authenticateToken: jest.fn((req, res, next) => next()),
     isAdmin: jest.fn((req, res, next) => next()),
 }));
 
+// Setup the Express application for testing
 const app = express();
 app.use(express.json());
 app.use('/public', publicRouter);
@@ -151,11 +154,8 @@ describe('Order Routes', () => {
         test('PUT /private/orders/:id - server error', async () => {
             console.log('Starting test: PUT /private/orders/:id - server error');
         
-            // Checking mock-s middlewars
-            authenticateToken.mockImplementation((req, res, next) => {
-                //console.log('Inside authenticateToken - calling next()');
-                next();
-            });
+            authenticateToken.mockImplementation((req, res, next) => next());
+
             orderController.updateOrder.mockImplementation((req, res) => {
                 //console.log('Inside updateOrder mock - sending 500');
                 return res.status(500).json({ error: 'Server error' });

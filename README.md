@@ -65,6 +65,9 @@
 - `npm install --save-dev mock-fs`
   - **mock-fs**: A library that replaces the actual file system with a mock version.
 
+- `npm install --save sqlite3`
+  - **sqlite3**: Model testing, no server setup required.
+
 
 
 
@@ -125,10 +128,31 @@
 -  |   |   |-- authMiddleware.test.js               // Tests for authMiddleware
 -  |   |-- controllers/                             // Tests for controllers
 -  |   |   |-- userController.test.js               // Tests for userController
+-  |   |   |-- dailyMenuController.test.js          // Tests for dailyMenuController
+-  |   |   |-- dishController.test.js               // Tests for dishController
+-  |   |   |-- orderController.test.js              // Tests for orderController
+-  |   |   |-- orderItemController.test.js          // Tests for orderItemController
 -  |   |   |-- paymentController.test.js            // Tests for paymentController
+-  |   |   |-- contactMessageController.test.js     // Tests for contactMessageController
+-  |   |   |-- feedbackController.test.js           // Tests for feedbackController
 -  |   |-- routes/                                  // Tests for routes
 -  |   |   |-- userRoutes.test.js                   // Tests for userRoutes
+-  |   |   |-- dailyMenuRoutes.test.js              // Tests for dailyMenuRoutes
+-  |   |   |-- dishRoutes.test.js                   // Tests for dishRoutes
+-  |   |   |-- orderRoutes.test.js                  // Tests for orderRoutes
+-  |   |   |-- orderItemRoutes.test.js              // Tests for orderItemRoutes
 -  |   |   |-- paymentRoutes.test.js                // Tests for paymentRoutes
+-  |   |   |-- contactMessageRoutes.test.js         // Tests for contactMessageRoutes
+-  |   |   |-- feedbackRoutes.test.js               // Tests for feedbackRoutes
+-  |   |-- models/                                  // Tests for models
+-  |   |   |-- user.test.js                         // Tests for User model
+-  |   |   |-- dailyMenu.test.js                    // Tests for DailyMenu model
+-  |   |   |-- dish.test.js                         // Tests for Dish model
+-  |   |   |-- order.test.js                        // Tests for Order model
+-  |   |   |-- orderItem.test.js                    // Tests for OrderItem model
+-  |   |   |-- payment.test.js                      // Tests for Payment model
+-  |   |   |-- contactMessage.test.js               // Tests for ContactMessage model
+-  |   |   |-- feedback.test.js                     // Tests for Feedback model
 -  |-- .env                                         // Environment variables
 -  |-- .gitignore                                   // Files and folders to ignore in Git
 -  |-- package.json                                 // Node.js dependencies and scripts

@@ -22,6 +22,7 @@ const { publicRouter, privateRouter } = require('../../routes/paymentRoutes');
 const paymentController = require('../../controllers/paymentController');
 const { authenticateToken, isAdmin } = require('../../middlewares/authMiddleware');
 
+// Mock controller
 jest.mock('../../controllers/paymentController', () => ({
     createPayment: jest.fn(),
     getPaymentById: jest.fn(),
@@ -30,11 +31,13 @@ jest.mock('../../controllers/paymentController', () => ({
     deletePayment: jest.fn(),
 }));
 
+// Mock middleware
 jest.mock('../../middlewares/authMiddleware', () => ({
     authenticateToken: jest.fn((req, res, next) => next()),
     isAdmin: jest.fn((req, res, next) => next()),
 }));
 
+// Setup the Express application for testing
 const app = express();
 app.use(express.json());
 app.use('/public', publicRouter);

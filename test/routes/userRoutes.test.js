@@ -22,6 +22,7 @@ const { publicRouter, privateRouter } = require('../../routes/userRoutes');
 const userController = require('../../controllers/userController');
 const { authenticateToken, isAdmin } = require('../../middlewares/authMiddleware');
 
+// Mock controller
 jest.mock('../../controllers/userController', () => ({
     loginUser: jest.fn(),
     createUser: jest.fn(),
@@ -32,6 +33,7 @@ jest.mock('../../controllers/userController', () => ({
     deleteUser: jest.fn(),
 }));
 
+// Mock middleware
 jest.mock('../../middlewares/authMiddleware', () => ({
     authenticateToken: jest.fn((req, res, next) => next()),
     isAdmin: jest.fn((req, res, next) => next()),
