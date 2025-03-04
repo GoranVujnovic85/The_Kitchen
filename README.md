@@ -17,7 +17,8 @@
 - Node.js 🌐
 - Express.js 🚀
 - MySQL 🗄️
-- Thunder Client/Postman 🌩️
+- Postman 🌩️
+- Jest 🧪
 
 
 ## 📜 License
@@ -57,6 +58,18 @@
   - **morgan**: A middleware for logging HTTP requests, useful for debugging and tracking activity.  
   - **cors**: A middleware to configure Cross-Origin Resource Sharing (CORS), allowing APIs to handle requests from different origins.
 
+- `npm install --save-dev jest supertest`
+  - **jest**: It allows you to write tests that check if your code works as you expect.
+  - **supertest**: A library in the Node.js ecosystem that serves to test HTTP servers, i.e. APIs.
+
+- `npm install --save-dev mock-fs`
+  - **mock-fs**: A library that replaces the actual file system with a mock version.
+
+- `npm install --save sqlite3`
+  - **sqlite3**: Model testing, no server setup required.
+
+
+
 
 ## 📂 Project Structure
 
@@ -72,6 +85,7 @@
 -  |   |-- paymentController.js                     // CRUD operations for Payment
 -  |   |-- contactMessageController.js              // CRUD operations for ContactMessage
 -  |   |-- feedbackController.js                    // CRUD operations for Feedback
+-  |   |-- userController.js                        // CRUD operations for User
 -  |-- migrations/
 -  |   |-- 20230123000000-create-user.js            // Migration for User table
 -  |   |-- 20230123000100-create-dailyMenu.js       // Migration for DailyMenu table
@@ -80,7 +94,6 @@
 -  |   |-- 20230123000400-create-orderItem.js       // Migration for OrderItem table
 -  |   |-- 20230123000500-create-payment.js         // Migration for Payment table
 -  |   |-- 20230123000600-create-contactMessage.js  // Migration for ContactMessage table
--  |   |-- userController.js                        // CRUD operations for User
 -  |   |-- 20230123000700-create-feedback.js        // Migration for Feedback table
 -  |   |-- 20250201062800-create-dailyMenuDishes.js // Pivot table for DailyMenus and Dishes
 -  |-- models/
@@ -110,6 +123,36 @@
 -  |-- utils/
 -  |   |-- responseHandler.js                       // Utility for standardizing API responses
 -  |-- uploads/                                     // Folder for storing dish and order images
+-  |-- test/                                        // Root test folder
+-  |   |-- middlewares/                             // Tests for middlewares
+-  |   |   |-- authMiddleware.test.js               // Tests for authMiddleware
+-  |   |-- controllers/                             // Tests for controllers
+-  |   |   |-- userController.test.js               // Tests for userController
+-  |   |   |-- dailyMenuController.test.js          // Tests for dailyMenuController
+-  |   |   |-- dishController.test.js               // Tests for dishController
+-  |   |   |-- orderController.test.js              // Tests for orderController
+-  |   |   |-- orderItemController.test.js          // Tests for orderItemController
+-  |   |   |-- paymentController.test.js            // Tests for paymentController
+-  |   |   |-- contactMessageController.test.js     // Tests for contactMessageController
+-  |   |   |-- feedbackController.test.js           // Tests for feedbackController
+-  |   |-- routes/                                  // Tests for routes
+-  |   |   |-- userRoutes.test.js                   // Tests for userRoutes
+-  |   |   |-- dailyMenuRoutes.test.js              // Tests for dailyMenuRoutes
+-  |   |   |-- dishRoutes.test.js                   // Tests for dishRoutes
+-  |   |   |-- orderRoutes.test.js                  // Tests for orderRoutes
+-  |   |   |-- orderItemRoutes.test.js              // Tests for orderItemRoutes
+-  |   |   |-- paymentRoutes.test.js                // Tests for paymentRoutes
+-  |   |   |-- contactMessageRoutes.test.js         // Tests for contactMessageRoutes
+-  |   |   |-- feedbackRoutes.test.js               // Tests for feedbackRoutes
+-  |   |-- models/                                  // Tests for models
+-  |   |   |-- user.test.js                         // Tests for User model
+-  |   |   |-- dailyMenu.test.js                    // Tests for DailyMenu model
+-  |   |   |-- dish.test.js                         // Tests for Dish model
+-  |   |   |-- order.test.js                        // Tests for Order model
+-  |   |   |-- orderItem.test.js                    // Tests for OrderItem model
+-  |   |   |-- payment.test.js                      // Tests for Payment model
+-  |   |   |-- contactMessage.test.js               // Tests for ContactMessage model
+-  |   |   |-- feedback.test.js                     // Tests for Feedback model
 -  |-- .env                                         // Environment variables
 -  |-- .gitignore                                   // Files and folders to ignore in Git
 -  |-- package.json                                 // Node.js dependencies and scripts
@@ -145,7 +188,7 @@
 -  ✅ Rutes implementation
 -  ✅ server.js implementation
 -  ✅ Starts server
--    👉 node server.js
+-   👉 node server.js
 -  ✅ Seeders implementation
 -    👉 npx sequelize-cli db:seed:all
 -    👉 npx sequelize-cli db:seed:undo
@@ -155,6 +198,9 @@
 -  ✅ npx nodemon server.js
 -  ✅ Role-based access control (RBAC)
 -  ✅ The order of seeding is very important
+-  ✅ JEST test
+-     👉  npm test
+-     👉  npm test -- userRoutes.test.js
 
 
 ## ✨ Conclusion

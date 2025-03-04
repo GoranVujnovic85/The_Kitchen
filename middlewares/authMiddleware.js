@@ -23,13 +23,21 @@
 /*=============================================================================================================*/
 
 const jwt = require('jsonwebtoken');
+const { token } = require('morgan');
 require('dotenv').config();                                                      // Load variables from .env file
+const tokebBlacklist = new Set();
 
 module.exports = {
   authenticateToken: (req, res, next) => {
     const token = req.headers.authorization?.split(' ')[1];                                   // "Bearer <token>"
+
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized: No token provided.' });
+    }
+
+    // Check if the token is in the blacklist
+    if (tokebBlacklist.has(token)) {
+      return res.status(403).json({ message: 'Forbidden: Token is blacklisted.'})
     }
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
@@ -53,5 +61,10 @@ module.exports = {
       return next();
     }
     return res.status(403).json({ message: 'Forbidden: Admins only.' });
+  },
+
+  // Add the token to the blacklist at logout
+  blacklistToken: (token) => {
+    tokebBlacklist.add(token);
   }
 };
