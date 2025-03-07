@@ -23,8 +23,7 @@ const { OrderItem } = require('../models');
 const responseHandler = require('../utils/responseHandler');
 
 class OrderItemController {
-    constructor() {}
-
+    
     async create(req, res) {
         
         try {

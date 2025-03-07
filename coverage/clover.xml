@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1740893552888" clover="3.2.0">
+  <project timestamp="1740893552888" name="All files">
+    <metrics statements="46" coveredstatements="46" conditionals="10" coveredconditionals="10" methods="7" coveredmethods="7" elements="63" coveredelements="63" complexity="0" loc="46" ncloc="46" packages="1" files="1" classes="1"/>
+    <file name="dishController.js" path="C:\Users\Lenovo\Desktop\Projects\The_Kitchen\controllers\dishController.js">
+      <metrics statements="46" coveredstatements="46" conditionals="10" coveredconditionals="10" methods="7" coveredmethods="7"/>
+      <line num="22" count="2" type="stmt"/>
+      <line num="23" count="2" type="stmt"/>
+      <line num="24" count="2" type="stmt"/>
+      <line num="25" count="2" type="stmt"/>
+      <line num="26" count="2" type="stmt"/>
+      <line num="29" count="2" type="stmt"/>
+      <line num="35" count="2" type="stmt"/>
+      <line num="37" count="1" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="44" count="2" type="stmt"/>
+      <line num="48" count="3" type="stmt"/>
+      <line num="49" count="3" type="stmt"/>
+      <line num="50" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="52" count="3" type="stmt"/>
+      <line num="53" count="2" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+      <line num="60" count="2" type="stmt"/>
+      <line num="61" count="2" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="64" count="1" type="stmt"/>
+      <line num="69" count="3" type="stmt"/>
+      <line num="70" count="3" type="stmt"/>
+      <line num="71" count="3" type="stmt"/>
+      <line num="72" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="73" count="1" type="stmt"/>
+      <line num="75" count="1" type="stmt"/>
+      <line num="77" count="1" type="stmt"/>
+      <line num="82" count="4" type="stmt"/>
+      <line num="83" count="4" type="stmt"/>
+      <line num="84" count="4" type="stmt"/>
+      <line num="85" count="4" type="cond" truecount="2" falsecount="0"/>
+      <line num="87" count="4" type="stmt"/>
+      <line num="92" count="3" type="cond" truecount="2" falsecount="0"/>
+      <line num="93" count="1" type="stmt"/>
+      <line num="96" count="2" type="stmt"/>
+      <line num="97" count="2" type="stmt"/>
+      <line num="99" count="1" type="stmt"/>
+      <line num="104" count="3" type="stmt"/>
+      <line num="105" count="3" type="stmt"/>
+      <line num="106" count="3" type="stmt"/>
+      <line num="107" count="2" type="cond" truecount="2" falsecount="0"/>
+      <line num="108" count="1" type="stmt"/>
+      <line num="110" count="1" type="stmt"/>
+      <line num="112" count="1" type="stmt"/>
+      <line num="117" count="2" type="stmt"/>
+      <line num="119" count="2" type="stmt"/>
+    </file>
+  </project>
+</coverage>
