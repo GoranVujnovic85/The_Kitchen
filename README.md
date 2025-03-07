@@ -203,5 +203,49 @@
 -     👉  npm test -- userRoutes.test.js
 
 
+# 🧪 Test Coverage Report
+
+
+- ------------------------------|---------|----------|---------|---------|-------------------
+- File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+- ------------------------------|---------|----------|---------|---------|-------------------
+- All files                     |    99.8 |    99.05 |     100 |    99.8 |                  
+-  controllers                  |   99.71 |    98.91 |     100 |   99.71 |                  
+-   contactMessageController.js |     100 |      100 |     100 |     100 |                  
+-   dailyMenuController.js      |     100 |      100 |     100 |     100 |                  
+-   dishController.js           |   97.91 |    91.66 |     100 |   97.91 | 31               
+-   feedbackController.js       |     100 |      100 |     100 |     100 |                  
+-   orderController.js          |     100 |      100 |     100 |     100 |                  
+-   orderItemController.js      |     100 |      100 |     100 |     100 |                  
+-   paymentController.js        |     100 |      100 |     100 |     100 |                  
+-   userController.js           |     100 |      100 |     100 |     100 |                  
+-  middlewares                  |     100 |      100 |     100 |     100 |                  
+-   authMiddleware.js           |     100 |      100 |     100 |     100 |                  
+-  models                       |     100 |      100 |     100 |     100 |                  
+-   contactmessage.js           |     100 |      100 |     100 |     100 |                  
+-   dailymenu.js                |     100 |      100 |     100 |     100 |                  
+-   dish.js                     |     100 |      100 |     100 |     100 |                  
+-   feedback.js                 |     100 |      100 |     100 |     100 |                  
+-   order.js                    |     100 |      100 |     100 |     100 |                  
+-   orderitem.js                |     100 |      100 |     100 |     100 |                  
+-   payment.js                  |     100 |      100 |     100 |     100 |                  
+-   user.js                     |     100 |      100 |     100 |     100 |                  
+-  routes                       |     100 |      100 |     100 |     100 |                  
+-   contactMessageRoutes.js     |     100 |      100 |     100 |     100 |                  
+-   dailyMenuRoutes.js          |     100 |      100 |     100 |     100 |                  
+-   dishRoutes.js               |     100 |      100 |     100 |     100 |                  
+-   feedbackRoutes.js           |     100 |      100 |     100 |     100 |                  
+-   orderItemRoutes.js          |     100 |      100 |     100 |     100 |                  
+-   orderRoutes.js              |     100 |      100 |     100 |     100 |                  
+-   paymentRoutes.js            |     100 |      100 |     100 |     100 |                  
+-   userRoutes.js               |     100 |      100 |     100 |     100 |                  
+- ------------------------------|---------|----------|---------|---------|-------------------
+- Test Suites: 25 passed, 25 total
+- Tests:       237 passed, 237 total
+- Snapshots:   0 total
+- Time:        9.132 s
+- Ran all test suites.
+
+
 ## ✨ Conclusion
 - I hope you find my projects to be educative and fun. If you encounter errors or have any improvements to make to the projects, don't be shy, go ahead and create a pull request.     -  🎉 Happy coding 🎉
