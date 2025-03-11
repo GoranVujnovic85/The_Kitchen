@@ -156,6 +156,70 @@
 -  ✅ Role-based access control (RBAC)
 -  ✅ The order of seeding is very important
 
+## 🏁 Adding unique restriction and lastlogin
+- 📌 I add unique: true to the Dish model
+- 📌 npx sequelize-cli migration:generate --name add-unique-constraint-to-dish-name
+- 📌 Update the newly created file --> in migration folder
+- 📌 Check if there are duplicates in the mysql database  --> if they exist, you should delete them
+-  👉 steps to check for duplicates : 
+-       ➡️  SHOW DATABASES;
+-       ➡️  USE the_kitchen;
+-       ➡️  SELECT name, COUNT(*) as count
+-       ➡️  FROM dishes
+-       ➡️  GROUP BY name
+-       ➡️  HAVING count > 1;
+- npx sequelize-cli db:migrate
+- 📌 I add unique: true to the email in User model
+- 📌 npx sequelize-cli migration:generate --name add-unique-constraint-to-user-email
+- 📌 Check if there are duplicates in the mysql database  --> if they exist, you should delete them
+-  👉 steps to check for duplicates : 
+-       ➡️  SHOW DATABASES;
+-       ➡️  USE the_kitchen;
+-       ➡️  SELECT email, COUNT(*) as count
+-       ➡️  FROM Users
+-       ➡️  GROUP BY email
+-       ➡️  HAVING count > 1;
+-       +-------------------------+-------+
+-       | email                   | count |
+-       +-------------------------+-------+
+-       | goranvujnovic@gmail.com |     7 |
+-       +-------------------------+-------+
+- 📌 SELECT * FROM Users WHERE email = 'goranvujnovic@gmail.com';  --> I want to check if they have different user name, roles...
+-     
+-     mysql> SELECT * FROM Users WHERE email = 'goranvujnovic@gmail.com';
+-     +----+----------+-------------------------+--------------------------------------------------------------+------+---------------------+---------------------+
+-     | id | username | email                   | password                                                     | role | createdAt           | updatedAt           |
+-     +----+----------+-------------------------+--------------------------------------------------------------+------+---------------------+---------------------+
+-     |  4 | goran    | goranvujnovic@gmail.com | $2b$10$n2zNi7LNwGyKLYG2Eb5LH.yEJNNI2//XwfLvjrwpqjgSTAHul4HVa | user | 2025-03-10 12:39:59 | 2025-03-10 12:39:59 |
+-     |  5 | goran    | goranvujnovic@gmail.com | $2b$10$kPctf.GBccKKeVZJYUlSb.eKdJpOW3MBDeftFvlFVcX9okB7CDc12 | user | 2025-03-10 12:40:13 | 2025-03-10 12:40:13 |
+-     |  6 | goran    | goranvujnovic@gmail.com | $2b$10$D9mbX4G/GqgZH1EoUi3A.uillTaKhcuw4c26gLF2l3NUSTrq9.l4W | user | 2025-03-10 12:40:24 | 2025-03-10 12:40:24 |
+-     |  8 | goran    | goranvujnovic@gmail.com | $2b$10$yN6agjk8kUQpp7mzMNH6O.P84tZ/gtFAUV7K.xfJejlhJLmcjLT8q | user | 2025-03-11 10:10:07 | 2025-03-11 10:10:07 |
+-     |  9 | goran    | goranvujnovic@gmail.com | $2b$10$RZk2d/1r19ZAzsY5E6teoeWMrW557ywWIPKBYWpFU5eL2.ckSxxui | user | 2025-03-11 10:10:13 | 2025-03-11 10:10:13 |
+-     | 10 | goran    | goranvujnovic@gmail.com | $2b$10$d6UvRMTkhPP6c.BaI7FGEOPl44U8vfWqC7Qj4/sAcAV0aYPFvP0pu | user | 2025-03-11 10:10:15 | 2025-03-11 10:10:15 |
+-     | 11 | goran    | goranvujnovic@gmail.com | $2b$10$GQl/aq.Pt9Nu9C6W6LjBFesZFO6zGYaW0lw9UcIhr3vTXsz.7O162 | user | 2025-03-11 10:10:16 | 2025-03-11 10:10:16 |
+-     +----+----------+-------------------------+--------------------------------------------------------------+------+---------------------+---------------------+
+-     7 rows in set (0.00 sec)
+-
+- 📌 SELECT id, username, email FROM Users WHERE email = 'goranvujnovic@gmail.com';
+-     
+-     +----+----------+-------------------------+
+-     | id | username | email                   |
+-     +----+----------+-------------------------+
+-     |  4 | goran    | goranvujnovic@gmail.com |
+-     |  5 | goran    | goranvujnovic@gmail.com |
+-     |  6 | goran    | goranvujnovic@gmail.com |
+-     |  8 | goran    | goranvujnovic@gmail.com |
+-     |  9 | goran    | goranvujnovic@gmail.com |
+-     | 10 | goran    | goranvujnovic@gmail.com |
+-     | 11 | goran    | goranvujnovic@gmail.com |
+-     +----+----------+-------------------------+
+-     7 rows in set (0.00 sec)
+- 
+- 📌 DELETE FROM Users WHERE email = 'goranvujnovic@gmail.com' AND id != 1;
+- 📌 SELECT email, COUNT(*) as count FROM Users GROUP BY email HAVING count > 1;
+- 📌 npx sequelize-cli db:migrate
+- 📌 
+
 
 ## ✨ Conclusion
 - I hope you find my projects to be educative and fun. If you encounter errors or have any improvements to make to the projects, don't be shy, go ahead and create a pull request.     -  🎉 Happy coding 🎉

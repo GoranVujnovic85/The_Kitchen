@@ -37,7 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Dish.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      unique: true              // adding a unique constraint 
+    },
     description: DataTypes.STRING,
     price: DataTypes.FLOAT,
     image: DataTypes.STRING

@@ -112,7 +112,17 @@ class UserController {
             if (!username || !email || !password) {
                 return errorResponse(res, "Name, email, and password are required.", 400);
             }
-    
+        /*
+            // Checking if the user with the given username already exists
+            const existingUser = await User.findOne({ where: { username } });
+            if (existingUser) {
+                return errorResponse(
+                    res,
+                    `A user named "${username}" already exists!`,
+                    400
+                );
+            }
+        */
             // Encrypt the password before saving it
             const hashedPassword = await bcrypt.hash(password, 10);
     

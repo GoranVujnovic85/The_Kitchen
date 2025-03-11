@@ -39,10 +39,16 @@ class DishController {
 
   async createDish(req, res) {
     try {
-      const { name, price } = req.body;
+      const { name, description, price, image } = req.body;
       const imagePath = req.file ? req.file.path : null;
 
-      const newDish = await Dish.create({ name, price, image: imagePath });
+      // Check if a dish with the same name already exists
+    const existingDish = await Dish.findOne({ where: { name } });
+    if (existingDish) {
+      return errorResponse(res, 'Dish with this name already exists', 400);
+    }
+
+      const newDish = await Dish.create({ name, description, price, image: imagePath });
       return successResponse(res, 'Dish created successfully', newDish, 201);
     } catch (error) {
       return errorResponse(res, 'Bad Request', 400, error.message);
