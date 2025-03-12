@@ -65,6 +65,9 @@ class UserController {
             const { email, password } = req.body;
             const user = await this.authenticateUser(email, password);
 
+            // Update the lastLogin field to the current time
+            await user.update({ lastLogin: new Date() });
+
             const token = jwt.sign(
                 { userId: user.id, role: user.role },
                 process.env.JWT_SECRET,

@@ -42,7 +42,12 @@ module.exports = (sequelize, DataTypes) => {
       unique: true      // adding a unique constraint  
     },
     password: DataTypes.STRING,
-    role: DataTypes.STRING
+    role: DataTypes.STRING,
+    lastLogin: {
+      type: DataTypes.DATE, // Field to track the last login
+      allowNull: true,      // Can be null if the user has never been logged in
+      defaultValue: null    // Default value is null
+    }
   }, { sequelize });
   
   return User;

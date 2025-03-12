@@ -156,7 +156,7 @@
 -  ✅ Role-based access control (RBAC)
 -  ✅ The order of seeding is very important
 
-## 🏁 Adding unique restriction and lastlogin
+## 🏁 Adding unique restriction 
 - 📌 I add unique: true to the Dish model
 - 📌 npx sequelize-cli migration:generate --name add-unique-constraint-to-dish-name
 - 📌 Update the newly created file --> in migration folder
@@ -220,6 +220,14 @@
 - 📌 npx sequelize-cli db:migrate
 - 📌 
 
+## 🏁 Adding  lastlogin
+
+- 📌 add lastLogin in user Model
+- 📌 npx sequelize-cli migration:generate --name add-last-login-to-users 
+- 📌 Update the newly created file --> in migration folder
+- 📌 npx sequelize-cli db:migrate
+- 📌
+- 📌
 
 ## ✨ Conclusion
 - I hope you find my projects to be educative and fun. If you encounter errors or have any improvements to make to the projects, don't be shy, go ahead and create a pull request.     -  🎉 Happy coding 🎉
