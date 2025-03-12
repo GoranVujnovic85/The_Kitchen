@@ -23,6 +23,8 @@ const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const { successResponse, errorResponse } = require('../utils/responseHandler');
 const jwt = require('jsonwebtoken');
+const { blacklistToken } = require('../middlewares/authMiddleware');
+const tokebBlacklist = new Set();
 
 
 class UserController {
@@ -58,7 +60,7 @@ class UserController {
     }
 
 
-    // Public routes (routes available for anyone)
+    // Login functionality
     async loginUser(req, res) {
 
         try {
@@ -73,15 +75,7 @@ class UserController {
                 process.env.JWT_SECRET,
                 { expiresIn: '24h' }
             );
-
-            // Set the JWT token in the cookie
-            res.cookie('token', token, {
-                httpOnly: true, // To make sure that only the server can access the cookie
-                secure: process.env.NODE_ENV === 'production', // In production environment only, use https
-                maxAge: 24 * 60 * 60 * 1000, // Set cookie expiration time (24h)
-            });
-
-
+            
             return successResponse(res, "Login successful.",  { token });
         } catch (error) {
             return errorResponse(res, error.message, 401);
@@ -93,13 +87,14 @@ class UserController {
     async logoutUser(req, res) {
 
         try {
-            // Remove cookie 'token'
-            res.clearCookie('token', { 
-                httpOnly: true, // Ensure that only the server can access the cookie
-                secure: process.env.NODE_ENV === 'production', // If in production, use HTTPS
-                sameSite: 'Strict' // Additional security - only from the same domain
-            });
+            const token = req.headers.authorization?.split(" ")[1]; // Get the token from the header
 
+            if (!token) {
+                return errorResponse(res, "No token provided", 400);
+            }
+
+            blacklistToken(token);  // Add the token to the blacklist
+        
             return successResponse(res, "Logout successful.");
         } catch (error) {
             return errorResponse(res, "Error during logout.", 500, error.message);
@@ -113,6 +108,7 @@ class UserController {
             const { username, email, password, role } = req.body;
     
             if (!username || !email || !password) {
+                //console.log('Missing fields detected:', { username, email, password });
                 return errorResponse(res, "Name, email, and password are required.", 400);
             }
         /*
@@ -143,6 +139,7 @@ class UserController {
 
         try {
             const users = await User.findAll({
+                attributes: { exclude: ['password'] },  // Turn off the password
                 order: [['createdAt', 'DESC']],
             });
 
@@ -158,7 +155,9 @@ class UserController {
 
         try {
             const { id } = req.params;
-            const user = await User.findByPk(id);
+            const user = await User.findByPk(id, {
+                attributes: { exclude: ['password'] }  // Turn off the password
+            });
 
             if (!user) {
                 return errorResponse(res, "User not found.", 404);
